@@ -265,6 +265,8 @@ interface MobileNavProps {
   handleEnter: (label: string, isLang: boolean) => void;
   handleLeave: () => void;
   onSignupClick?: () => void;
+  isMobileMenuOpen: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 const MobileNav = ({
@@ -277,6 +279,8 @@ const MobileNav = ({
   handleEnter,
   handleLeave,
   onSignupClick,
+  isMobileMenuOpen,
+  onOpenChange,
 }: MobileNavProps) => (
   <div className="lg:hidden flex items-center justify-between w-full h-[80px] px-6">
     <Link href="/" className="block flex-shrink-0 w-[180px] h-[51px]">
@@ -291,7 +295,7 @@ const MobileNav = ({
         showSkeleton={false}
       />
     </Link>
-    <Sheet>
+    <Sheet open={isMobileMenuOpen} onOpenChange={onOpenChange}>
       <SheetTrigger asChild>
         <Button
           variant="ghost"
@@ -309,7 +313,7 @@ const MobileNav = ({
       >
         <SheetHeader className="h-[80px] px-6 border-b border-white/10 flex flex-row items-center justify-between shrink-0 space-y-0">
           <SheetTitle className="text-left">
-            <Link href="/" className="block w-[180px] h-[51px]">
+            <Link href="/" className="block w-[180px] h-[51px]" onClick={() => onOpenChange(false)}>
               <FadeInImage
                 src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/DigtracksLogo-1767058495526.png?width=360&height=102&resize=contain"
                 alt="DIGTRACKS"
@@ -352,6 +356,7 @@ const MobileNav = ({
                           <Link
                             href="#"
                             className="hover:text-[#5e17eb] transition-colors"
+                            onClick={() => onOpenChange(false)}
                           >
                             {subItem.label}
                           </Link>
@@ -365,6 +370,7 @@ const MobileNav = ({
                   key={item.label}
                   href={item.href || "#"}
                   className="flex w-full items-center py-4 text-base font-medium border-b border-border hover:text-[#5e17eb] transition-colors"
+                  onClick={() => onOpenChange(false)}
                 >
                   {item.label}
                 </Link>
@@ -384,7 +390,10 @@ const MobileNav = ({
           />
             <Button
               variant="outline"
-              onClick={onSignupClick}
+              onClick={() => {
+                onSignupClick?.();
+                onOpenChange(false);
+              }}
               className="w-full border-[#666] h-11 text-base hover:bg-[#5e17eb] hover:text-white hover:border-[#5e17eb]"
             >
               {t("login")}
@@ -398,9 +407,15 @@ const MobileNav = ({
 
 interface HeaderNavigationProps {
   onSignupClick?: () => void;
+  isMobileMenuOpen: boolean;
+  onMobileMenuOpenChange: (open: boolean) => void;
 }
 
-const HeaderNavigation = ({ onSignupClick }: HeaderNavigationProps) => {
+const HeaderNavigation = ({ 
+  onSignupClick,
+  isMobileMenuOpen,
+  onMobileMenuOpenChange,
+}: HeaderNavigationProps) => {
   const t = useTranslations("Header");
   const locale = useLocale();
   const pathname = usePathname();
@@ -490,6 +505,8 @@ const HeaderNavigation = ({ onSignupClick }: HeaderNavigationProps) => {
         handleEnter={handleEnter}
         handleLeave={handleLeave}
         onSignupClick={onSignupClick}
+        isMobileMenuOpen={isMobileMenuOpen}
+        onOpenChange={onMobileMenuOpenChange}
       />
     </header>
   );

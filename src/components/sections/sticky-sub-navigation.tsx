@@ -5,20 +5,27 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
-const StickySubNavigation = () => {
+interface StickySubNavigationProps {
+  isMobileMenuOpen?: boolean;
+  onSignupClick?: () => void;
+}
+
+const StickySubNavigation = ({ isMobileMenuOpen, onSignupClick }: StickySubNavigationProps) => {
   const t = useTranslations("StickyNav");
   const [activeSection, setActiveSection] = useState("");
 
-    const navItems = [
-      { label: t("features"), href: "#features" },
-      { label: t("price"), href: "#pricing" },
-      { label: t("genres"), href: "#genres" },
-      { label: t("popular"), href: "#popular" },
-      { label: t("faq"), href: "#faq" },
-      { label: t("software"), href: "#integrations" },
-    ];
+  const navItems = [
+    { label: t("features"), href: "#features" },
+    { label: t("price"), href: "#pricing" },
+    { label: t("genres"), href: "#genres" },
+    { label: t("popular"), href: "#popular" },
+    { label: t("faq"), href: "#faq" },
+    { label: t("software"), href: "#integrations" },
+  ];
 
   useEffect(() => {
+    if (isMobileMenuOpen) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -48,6 +55,8 @@ const StickySubNavigation = () => {
     }
   };
 
+  if (isMobileMenuOpen) return null;
+
   return (
     <div className="sticky top-0 z-[11000] w-full pointer-events-none overflow-hidden h-[80px] flex items-center">
       <div className="container pointer-events-auto">
@@ -73,9 +82,10 @@ const StickySubNavigation = () => {
                   </a>
               ))}
             </nav>
-              <Button 
-                className="bg-[#5e17eb] hover:bg-[#4c12bd] text-white font-black italic rounded-full px-3 md:px-8 h-9 md:h-11 text-[9px] md:text-xs tracking-tighter"
-              >
+            <Button 
+              onClick={onSignupClick}
+              className="bg-[#5e17eb] hover:bg-[#4c12bd] text-white font-black italic rounded-full px-3 md:px-8 h-9 md:h-11 text-[9px] md:text-xs tracking-tighter"
+            >
               {t("cta")}
             </Button>
           </div>

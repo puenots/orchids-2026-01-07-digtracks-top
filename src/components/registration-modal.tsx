@@ -4,6 +4,7 @@ import * as React from "react";
 import Image from "next/image";
 import { Eye, EyeOff } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/routing";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -19,8 +20,14 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   const locale = useLocale();
+  const router = useRouter();
   const t = useTranslations("Hero.form");
   const isJa = locale === "ja";
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push("/auth/verify");
+  };
 
   const NameFields = () => {
     const firstNameField = (
@@ -91,7 +98,8 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
             </div>
           </DialogHeader>
 
-          <form className="grid gap-5" onSubmit={(e) => e.preventDefault()}>
+            <form className="grid gap-5" onSubmit={handleSubmit}>
+
             <div className="grid gap-2">
               <Label htmlFor="email" className="text-xs font-medium uppercase tracking-wider text-zinc-500">
                 {t("email")}

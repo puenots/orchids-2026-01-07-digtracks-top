@@ -21,16 +21,21 @@ const Footer = dynamic(() => import("@/components/sections/footer"));
 
 export function LandingPageClient() {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
   const openModal = () => setIsModalOpen(true);
 
   return (
     <div className="min-h-screen bg-black">
-      <HeaderNavigation onSignupClick={openModal} />
+      <HeaderNavigation 
+        onSignupClick={openModal} 
+        isMobileMenuOpen={isMobileMenuOpen}
+        onMobileMenuOpenChange={setIsMobileMenuOpen}
+      />
       
-      <main>
-        <StickySubNavigation />
-        <HeroSection onSignupClick={openModal} />
+        <main>
+          <StickySubNavigation isMobileMenuOpen={isMobileMenuOpen} onSignupClick={openModal} />
+          <HeroSection onSignupClick={openModal} />
         
         <FeaturesCards />
         
