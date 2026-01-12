@@ -1280,6 +1280,245 @@ button {
 .genre-2010s:hover { color: #818CF8; border-color: #818CF8; background-color: rgba(129, 140, 248, 0.1); }
 
 /* ========================================
+   POPULAR SECTION (GENRE RANKING)
+======================================== */
+.popular {
+  background-color: black;
+  color: white;
+  padding: 48px 0 16px;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@media (min-width: 768px) {
+  .popular {
+    padding: 80px 0 32px;
+  }
+}
+
+.popular-header {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+@media (min-width: 768px) {
+  .popular-header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.popular-title {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: white;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .popular-title {
+    font-size: 3rem;
+  }
+}
+
+.popular-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.popular-tab {
+  position: relative;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #71717a;
+  padding: 4px 0;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+@media (min-width: 768px) {
+  .popular-tab {
+    font-size: 1.125rem;
+  }
+}
+
+.popular-tab:hover {
+  color: white;
+}
+
+.popular-tab.active {
+  color: white;
+}
+
+.popular-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #5e17eb;
+}
+
+.popular-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .popular-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+  }
+}
+
+.popular-track {
+  position: relative;
+}
+
+.popular-track-image {
+  position: relative;
+  aspect-ratio: 1;
+  margin-bottom: 16px;
+  overflow: hidden;
+  border-radius: 2px;
+  background-color: #18181b;
+}
+
+.popular-track-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.popular-track:hover .popular-track-image img {
+  transform: scale(1.05);
+}
+
+.popular-track-rank {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: 700;
+  color: white;
+}
+
+.popular-track-info {
+  padding: 0 4px;
+}
+
+.popular-track-title {
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: -0.025em;
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+@media (min-width: 768px) {
+  .popular-track-title {
+    font-size: 0.875rem;
+  }
+}
+
+.popular-track:hover .popular-track-title {
+  color: white;
+}
+
+.popular-track-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.popular-track-artist {
+  font-size: 9px;
+  font-weight: 800;
+  color: #d4d4d8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .popular-track-artist {
+    font-size: 10px;
+  }
+}
+
+.popular-track-details {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: monospace;
+  font-size: 9px;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .popular-track-details {
+    font-size: 10px;
+  }
+}
+
+.popular-track-bpm {
+  color: #71717a;
+}
+
+.popular-track-separator {
+  color: #52525b;
+}
+
+.popular-track-key {
+  font-weight: 700;
+}
+
+.popular-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: rgba(24, 24, 27, 0.5);
+}
+
+.popular-progress-bar {
+  height: 100%;
+  background-color: #5e17eb;
+  width: 0;
+  transition: width 0.1s linear;
+}
+
+/* ========================================
    SOFTWARE LOGOS SECTION
 ======================================== */
 .software-logos {
