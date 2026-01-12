@@ -478,7 +478,7 @@ const HeaderNavigation = ({
 
   return (
     <header
-      className={`relative z-[12000] bg-[#121212] h-[80px] overflow-hidden transition-opacity duration-500 ${
+      className={`sticky top-0 z-[12000] bg-[#121212] h-[80px] overflow-hidden transition-opacity duration-500 ${
         mounted ? "opacity-100" : "opacity-0"
       }`}
     >
