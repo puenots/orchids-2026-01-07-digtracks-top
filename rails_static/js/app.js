@@ -336,40 +336,49 @@
   // ========================================
   function initStickyNav() {
     const stickyNav = document.getElementById('sticky-nav');
-    const header = document.getElementById('header');
+    if (!stickyNav) return;
 
-    if (!stickyNav || !header) return;
+    const navLinks = stickyNav.querySelectorAll('.sticky-nav-link');
+    const sectionIds = Array.from(navLinks).map(link => link.getAttribute('href').slice(1));
 
-    let lastScrollY = window.scrollY;
-    let headerHeight = header.offsetHeight;
+    // Active section tracking with IntersectionObserver
+    const observerOptions = {
+      threshold: 0.5,
+      rootMargin: '-80px 0px 0px 0px'
+    };
 
-    window.addEventListener('scroll', function() {
-      const currentScrollY = window.scrollY;
-
-      // Show/hide sticky nav based on scroll direction
-      if (currentScrollY > headerHeight) {
-        if (currentScrollY < lastScrollY) {
-          // Scrolling up - show sticky nav
-          stickyNav.classList.remove('hidden');
-        } else {
-          // Scrolling down - hide sticky nav
-          stickyNav.classList.add('hidden');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const activeId = entry.target.id;
+          navLinks.forEach(link => {
+            const linkHref = link.getAttribute('href').slice(1);
+            if (linkHref === activeId) {
+              link.classList.add('active');
+            } else {
+              link.classList.remove('active');
+            }
+          });
         }
-      } else {
-        stickyNav.classList.add('hidden');
-      }
+      });
+    }, observerOptions);
 
-      lastScrollY = currentScrollY;
+    // Observe all sections
+    sectionIds.forEach(id => {
+      const section = document.getElementById(id);
+      if (section) {
+        observer.observe(section);
+      }
     });
 
     // Smooth scroll for anchor links
-    stickyNav.querySelectorAll('a[href^="#"]').forEach(link => {
+    navLinks.forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').slice(1);
         const target = document.getElementById(targetId);
         if (target) {
-          const offset = stickyNav.offsetHeight + 20;
+          const offset = 80; // Match sticky nav height
           const targetPosition = target.getBoundingClientRect().top + window.scrollY - offset;
           window.scrollTo({
             top: targetPosition,
