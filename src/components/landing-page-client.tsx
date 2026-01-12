@@ -6,6 +6,7 @@ import HeaderNavigation from "@/components/sections/header-navigation";
 import StickySubNavigation from "@/components/sections/sticky-sub-navigation";
 import HeroSection from "@/components/sections/hero-section";
 import FeaturesCards from "@/components/sections/features-cards";
+import MostPopularTracks from "@/components/sections/most-popular-tracks";
 import Impact from "@/components/sections/impact";
 import FinalCtaSection from "@/components/sections/final-cta";
 import { RegistrationModal } from "@/components/registration-modal";
@@ -38,7 +39,13 @@ export function LandingPageClient() {
           <HeroSection onSignupClick={openModal} />
         
         <FeaturesCards />
-        
+
+        <section className="bg-black py-8 md:py-12">
+          <div className="container">
+            <MostPopularTracks />
+          </div>
+        </section>
+
         <section className="bg-black py-8 md:py-12">
           <div className="container">
             <Impact />
