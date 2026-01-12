@@ -4,6 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
+        "dev:static": "npx serve rails_static -p 3000",
         "build": "next build",
         "start": "next start",
         "lint": "next lint"
