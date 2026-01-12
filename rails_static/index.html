@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIGTRACKS - DJ Record Pool</title>
+  <meta name="description" content="DIGTRACKS - Your Ultimate DJ Record Pool for Premium DJ Music">
+
+  <!-- Google Fonts - Oswald -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/DIGTRACKS-NEW-LOGO_square-1766839886728.png?width=32&height=32&resize=contain">
+</head>
+<body>
+  <!-- Header Navigation -->
+  <header class="header" id="header">
+    <!-- Desktop Navigation -->
+    <div class="header-desktop">
+      <div class="header-inner">
+        <a href="/" class="logo-link">
+          <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/DigtracksLogo-1767058495526.png?width=360&height=102&resize=contain" alt="DIGTRACKS">
+        </a>
+
+        <nav class="nav-main">
+          <ul class="nav-list">
+            <li class="nav-item">
+              <div class="dropdown" data-dropdown="music">
+                <button class="nav-link" aria-expanded="false">
+                  <span data-i18n="Header.nav.music">Music</span>
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="dropdown-menu">
+                  <a href="#" class="dropdown-item" data-i18n="Header.nav.allMusic">All Music</a>
+                  <a href="#" class="dropdown-item" data-i18n="Header.nav.charts">Charts</a>
+                  <a href="#" class="dropdown-item" data-i18n="Header.nav.playlists">Playlists</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="dropdown" data-dropdown="more">
+                <button class="nav-link" aria-expanded="false">
+                  <span data-i18n="Header.nav.more">More</span>
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="dropdown-menu">
+                  <a href="#" class="dropdown-item" data-i18n="Header.nav.exclusives">Exclusives</a>
+                  <a href="#" class="dropdown-item" data-i18n="Header.nav.djEdits">DJ Edits</a>
+                  <a href="#" class="dropdown-item" data-i18n="Header.nav.genres">Genres</a>
+                  <a href="#" class="dropdown-item" data-i18n="Header.nav.integrations">Integrations</a>
+                  <a href="#" class="dropdown-item" data-i18n="Header.nav.about">About</a>
+                  <a href="#" class="dropdown-item" data-i18n="Header.nav.support">Support</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" data-i18n="Header.nav.news">News</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="search-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <input type="search" class="search-input" data-i18n-placeholder="Header.search" placeholder="Search...">
+            <button class="search-clear" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="dropdown" data-dropdown="lang">
+            <button class="lang-btn" aria-expanded="false">
+              <svg class="globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              <span id="current-lang">JA</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item" data-lang="en">English (EN)</a>
+              <a href="#" class="dropdown-item" data-lang="ja">Japanese (JA)</a>
+            </div>
+          </div>
+
+          <button class="btn btn-outline" id="login-btn" data-i18n="Header.login">Login</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="header-mobile">
+      <a href="/" class="logo-link">
+        <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/DigtracksLogo-1767058495526.png?width=360&height=102&resize=contain" alt="DIGTRACKS">
+      </a>
+      <button class="menu-btn" id="mobile-menu-btn" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M3 12h18M3 6h18M3 18h18"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-backdrop" id="mobile-drawer-backdrop"></div>
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <a href="/" class="logo-link">
+        <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/DigtracksLogo-1767058495526.png?width=360&height=102&resize=contain" alt="DIGTRACKS">
+      </a>
+      <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="mobile-search">
+      <div class="search-wrapper" style="width: 100%;">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input type="search" class="search-input" data-i18n-placeholder="Header.search" placeholder="Search...">
+      </div>
+    </div>
+    <nav class="mobile-nav">
+      <button class="mobile-nav-item" data-mobile-dropdown="music">
+        <span data-i18n="Header.nav.music">Music</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+      <div class="mobile-nav-submenu" id="mobile-submenu-music">
+        <a href="#" data-i18n="Header.nav.allMusic">All Music</a>
+        <a href="#" data-i18n="Header.nav.charts">Charts</a>
+        <a href="#" data-i18n="Header.nav.playlists">Playlists</a>
+      </div>
+      <button class="mobile-nav-item" data-mobile-dropdown="more">
+        <span data-i18n="Header.nav.more">More</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+      <div class="mobile-nav-submenu" id="mobile-submenu-more">
+        <a href="#" data-i18n="Header.nav.exclusives">Exclusives</a>
+        <a href="#" data-i18n="Header.nav.djEdits">DJ Edits</a>
+        <a href="#" data-i18n="Header.nav.genres">Genres</a>
+        <a href="#" data-i18n="Header.nav.integrations">Integrations</a>
+        <a href="#" data-i18n="Header.nav.about">About</a>
+        <a href="#" data-i18n="Header.nav.support">Support</a>
+      </div>
+      <a href="#" class="mobile-nav-item" data-i18n="Header.nav.news">News</a>
+    </nav>
+    <div class="mobile-drawer-footer">
+      <div class="dropdown" data-dropdown="mobile-lang" style="width: 100%;">
+        <button class="btn btn-outline" style="width: 100%; justify-content: space-between;" aria-expanded="false">
+          <span id="mobile-current-lang">JA</span>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="dropdown-menu" style="width: 100%;">
+          <a href="#" class="dropdown-item" data-lang="en">English (EN)</a>
+          <a href="#" class="dropdown-item" data-lang="ja">Japanese (JA)</a>
+        </div>
+      </div>
+      <button class="btn btn-outline" id="mobile-login-btn" data-i18n="Header.login">Login</button>
+    </div>
+  </div>
+
+  <main>
+    <!-- Sticky Sub Navigation -->
+    <div class="sticky-nav" id="sticky-nav">
+      <div class="container">
+        <div class="sticky-nav-inner">
+          <div class="sticky-nav-links">
+            <a href="#features" class="sticky-nav-link" data-i18n="StickyNav.features">Features</a>
+            <a href="#pricing" class="sticky-nav-link" data-i18n="StickyNav.price">Price</a>
+            <a href="#genres" class="sticky-nav-link" data-i18n="StickyNav.genres">Genres</a>
+            <a href="#faq" class="sticky-nav-link" data-i18n="StickyNav.faq">FAQ</a>
+            <a href="#integrations" class="sticky-nav-link" data-i18n="StickyNav.software">Software</a>
+          </div>
+          <div class="sticky-nav-cta">
+            <button class="btn btn-primary" id="sticky-cta-btn" data-i18n="StickyNav.cta">DOWNLOAD TRACKS NOW</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="signup">
+      <div class="hero-bg">
+        <img class="hero-bg-image" src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/document-uploads/digHere-1766888370796.webp" alt="DJ hands on a turntable">
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="container hero-content">
+        <div class="hero-inner fade-in">
+          <div class="hero-badge">
+            <div class="hero-logo-icon" aria-label="DIGTRACKS logo icon"></div>
+            <span class="hero-badge-text" data-i18n="Hero.badge">Change your DJing with DIGTRACKS.</span>
+          </div>
+          <h1 class="hero-title" data-i18n-html="Hero.title">MORE TRACKS. FASTER PICKS. BETTER SETS.<br>Start now.</h1>
+          <div class="hero-cta">
+            <button class="btn btn-primary btn-lg" id="hero-cta-btn" data-i18n="Hero.form.title">Create a free account</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Cards Section -->
+    <section class="features" id="features">
+      <div class="features-container">
+        <div class="features-grid">
+          <!-- Feature Card 1 -->
+          <a href="#" class="feature-card fade-in">
+            <div class="feature-card-image">
+              <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/FeaturesCards1-1767060678993.png?width=8000&height=8000&resize=contain" alt="DJ Edits + Tools">
+              <div class="feature-card-overlay"></div>
+              <div class="feature-card-play">
+                <span class="feature-card-play-btn">
+                  <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="feature-card-content">
+                <div class="feature-card-text">
+                  <h3 class="feature-card-title" data-i18n="Features.introEdits.title">DJ EDITS + TOOLS</h3>
+                  <p class="feature-card-desc" data-i18n="Features.introEdits.description">Custom DJ edits including Intro versions, Clean edits, Transition tools, and much more.</p>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Feature Card 2 -->
+          <a href="#" class="feature-card fade-in fade-in-delay-1">
+            <div class="feature-card-image">
+              <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/FeaturesCards3-1767071230487.png?width=8000&height=8000&resize=contain" alt="Exclusive Remixes">
+              <div class="feature-card-overlay"></div>
+              <div class="feature-card-play">
+                <span class="feature-card-play-btn">
+                  <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="feature-card-content">
+                <div class="feature-card-text">
+                  <h3 class="feature-card-title" data-i18n="Features.card2.title">EXCLUSIVE REMIXES</h3>
+                  <p class="feature-card-desc" data-i18n="Features.card2.description">Add instant energy to your sets with remixes only found here.</p>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Feature Card 3 -->
+          <a href="#" class="feature-card fade-in fade-in-delay-2">
+            <div class="feature-card-image">
+              <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Stems-Play3-1767071323493.png?width=8000&height=8000&resize=contain" alt="Mixable Track Search">
+              <div class="feature-card-overlay"></div>
+              <div class="feature-card-play">
+                <span class="feature-card-play-btn">
+                  <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="feature-card-content">
+                <div class="feature-card-text">
+                  <h3 class="feature-card-title" data-i18n="Features.card3.title">Mixable Track Search</h3>
+                  <p class="feature-card-desc" data-i18n="Features.card3.description">Instantly find tracks with mixable KEY/BPM.</p>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Feature Card 4 -->
+          <a href="#" class="feature-card fade-in fade-in-delay-3">
+            <div class="feature-card-image">
+              <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/FeaturesCards1-1767060678993.png?width=8000&height=8000&resize=contain" alt="Classics & Throwbacks">
+              <div class="feature-card-overlay"></div>
+              <div class="feature-card-play">
+                <span class="feature-card-play-btn">
+                  <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="feature-card-content">
+                <div class="feature-card-text">
+                  <h3 class="feature-card-title" data-i18n="Features.downloadsForLife.title">CLASSICS & THROWBACKS</h3>
+                  <p class="feature-card-desc" data-i18n="Features.downloadsForLife.description">All the DJ staples you need, all in one place.</p>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact">
+      <div class="container">
+        <div class="impact-grid">
+          <!-- Impact Card 1 -->
+          <a href="#" class="impact-card fade-in">
+            <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/c4a30213-a637-46c0-b6d5-4cb7669fabe2/ChatGPT-Image-2026-1-5-15_35_25-1-1767595169114.webp?width=8000&height=8000&resize=contain" alt="Vintage Walkman and cassette tapes">
+            <div class="impact-card-overlay"></div>
+            <div class="impact-card-content">
+              <h3 class="impact-card-title" data-i18n="Impact.edits.title">DOWNLOADS ARE FOREVER</h3>
+              <p class="impact-card-desc" data-i18n="Impact.edits.description">Enter the era of music ownership once again.
+Unmatched stability unaffected by internet conditions,
+plus the freedom of mixing with stem files.</p>
+            </div>
+          </a>
+
+          <!-- Impact Card 2 -->
+          <a href="#" class="impact-card fade-in fade-in-delay-1">
+            <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/7791b4c9-fd6f-4a5b-9047-d1e474a73773/iphone_dig-1767439431540.png?width=8000&height=8000&resize=contain" alt="Mobile App Mockup" style="object-position: 35% top; transform: scale(1.3);">
+            <div class="impact-card-overlay" style="background: linear-gradient(to right, black, rgba(147, 51, 234, 0.15) 40%, transparent);"></div>
+            <div class="impact-card-content">
+              <h3 class="impact-card-title" data-i18n="Impact.mobileApp.title">FIND ON MOBILE, DOWNLOAD LATER</h3>
+              <p class="impact-card-desc" data-i18n="Impact.mobileApp.description">Anytime, anywhere (on mobile)
+Save tracks you find while on the move to your favorites, then download them all at once later.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Every Genre Section -->
+    <section class="genres" id="genres">
+      <div class="container">
+        <div class="genres-header fade-in">
+          <h2 class="genres-title" data-i18n="EveryGenre.title">All Genres. Ready to Dig.</h2>
+          <p class="genres-subtitle" data-i18n="EveryGenre.subtitle">From classics to today's hits - every decade covered.</p>
+        </div>
+      </div>
+      <div class="genres-marquee-wrapper">
+        <div class="genres-marquee-gradient-left"></div>
+        <div class="genres-marquee-gradient-right"></div>
+        <div class="genres-marquee" id="genres-marquee-1">
+          <span class="genre-tag genre-hip-hop">HIP HOP</span>
+          <span class="genre-tag genre-rb">R&B</span>
+          <span class="genre-tag genre-edm">EDM</span>
+          <span class="genre-tag genre-rap">RAP</span>
+          <span class="genre-tag genre-rock">ROCK</span>
+          <span class="genre-tag genre-latin">LATIN</span>
+          <span class="genre-tag genre-pop">POP</span>
+          <span class="genre-tag genre-country">COUNTRY</span>
+          <span class="genre-tag genre-dance">DANCE</span>
+          <!-- Duplicate for seamless loop -->
+          <span class="genre-tag genre-hip-hop">HIP HOP</span>
+          <span class="genre-tag genre-rb">R&B</span>
+          <span class="genre-tag genre-edm">EDM</span>
+          <span class="genre-tag genre-rap">RAP</span>
+          <span class="genre-tag genre-rock">ROCK</span>
+          <span class="genre-tag genre-latin">LATIN</span>
+          <span class="genre-tag genre-pop">POP</span>
+          <span class="genre-tag genre-country">COUNTRY</span>
+          <span class="genre-tag genre-dance">DANCE</span>
+        </div>
+        <div class="genres-marquee reverse" id="genres-marquee-2" style="margin-top: 12px;">
+          <span class="genre-tag genre-house">HOUSE</span>
+          <span class="genre-tag genre-trap">TRAP</span>
+          <span class="genre-tag genre-reggaeton">REGGAETON</span>
+          <span class="genre-tag genre-afrobeats">AFROBEATS</span>
+          <span class="genre-tag genre-70s">70S</span>
+          <span class="genre-tag genre-80s">80S</span>
+          <span class="genre-tag genre-90s">90S</span>
+          <span class="genre-tag genre-2000s">2000S</span>
+          <span class="genre-tag genre-2010s">2010S</span>
+          <!-- Duplicate for seamless loop -->
+          <span class="genre-tag genre-house">HOUSE</span>
+          <span class="genre-tag genre-trap">TRAP</span>
+          <span class="genre-tag genre-reggaeton">REGGAETON</span>
+          <span class="genre-tag genre-afrobeats">AFROBEATS</span>
+          <span class="genre-tag genre-70s">70S</span>
+          <span class="genre-tag genre-80s">80S</span>
+          <span class="genre-tag genre-90s">90S</span>
+          <span class="genre-tag genre-2000s">2000S</span>
+          <span class="genre-tag genre-2010s">2010S</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Software Logos Section -->
+    <section class="software-logos" id="integrations">
+      <div class="container">
+        <div class="software-logos-header fade-in">
+          <h1 class="software-logos-title" data-i18n="SoftwareLogos.title">DIGTRACKS WORKS SEAMLESSLY WITH ALL MAJOR DJ SOFTWARE</h1>
+          <p class="software-logos-desc" data-i18n="SoftwareLogos.description">Works with Serato, rekordbox, Traktor, VirtualDJ, and djay.</p>
+        </div>
+      </div>
+      <div class="software-logos-carousel">
+        <div class="software-logos-track">
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/7791b4c9-fd6f-4a5b-9047-d1e474a73773-djcity-com/assets/images/serato_logo-9.png" alt="Serato"></div>
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/7791b4c9-fd6f-4a5b-9047-d1e474a73773-djcity-com/assets/images/rekordbox_logo-10.png" alt="Rekordbox"></div>
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/traktor_logo-12-1767585552030.png?width=400&resize=contain" alt="Traktor"></div>
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/7791b4c9-fd6f-4a5b-9047-d1e474a73773-djcity-com/assets/images/virtualdj_logo-12.png" alt="VirtualDJ"></div>
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/7791b4c9-fd6f-4a5b-9047-d1e474a73773-djcity-com/assets/images/djay_logo-13.png" alt="DJAY"></div>
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/c4a30213-a637-46c0-b6d5-4cb7669fabe2/pioneerdj_logo-1767592262967.png?width=400&resize=contain" alt="Pioneer DJ"></div>
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/c4a30213-a637-46c0-b6d5-4cb7669fabe2/algoriddim-1-1767592262973.png?width=400&resize=contain" alt="Algoriddim"></div>
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/c4a30213-a637-46c0-b6d5-4cb7669fabe2/denon_dj-1767592262981.png?width=400&resize=contain" alt="Denon DJ" style="height: 16px;"></div>
+          <!-- Duplicate for seamless loop -->
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/7791b4c9-fd6f-4a5b-9047-d1e474a73773-djcity-com/assets/images/serato_logo-9.png" alt="Serato"></div>
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/7791b4c9-fd6f-4a5b-9047-d1e474a73773-djcity-com/assets/images/rekordbox_logo-10.png" alt="Rekordbox"></div>
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/traktor_logo-12-1767585552030.png?width=400&resize=contain" alt="Traktor"></div>
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/7791b4c9-fd6f-4a5b-9047-d1e474a73773-djcity-com/assets/images/virtualdj_logo-12.png" alt="VirtualDJ"></div>
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/7791b4c9-fd6f-4a5b-9047-d1e474a73773-djcity-com/assets/images/djay_logo-13.png" alt="DJAY"></div>
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/c4a30213-a637-46c0-b6d5-4cb7669fabe2/pioneerdj_logo-1767592262967.png?width=400&resize=contain" alt="Pioneer DJ"></div>
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/c4a30213-a637-46c0-b6d5-4cb7669fabe2/algoriddim-1-1767592262973.png?width=400&resize=contain" alt="Algoriddim"></div>
+          <div class="software-logo"><img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/c4a30213-a637-46c0-b6d5-4cb7669fabe2/denon_dj-1767592262981.png?width=400&resize=contain" alt="Denon DJ" style="height: 16px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Massive Library Section -->
+    <section class="massive-library">
+      <div class="massive-library-bg" id="album-grid">
+        <!-- Album images will be inserted by JS -->
+      </div>
+      <div class="massive-library-overlay"></div>
+      <div class="massive-library-content">
+        <div class="massive-library-inner fade-in">
+          <p class="massive-library-tagline" data-i18n="MassiveLibrary.description">From TOP 40 to THROWBACK, from EDM to TRAP to JERSEY CLUB, DIGTRACKS has you covered.</p>
+          <h2 class="massive-library-title" data-i18n="MassiveLibrary.title">The largest selection of digital downloads for Professional DJs</h2>
+          <p class="massive-library-subtitle" data-i18n="MassiveLibrary.throwbackSubheadline">From classics to today's hits - every decade covered.</p>
+          <div class="massive-library-cta">
+            <button class="btn btn-primary" id="massive-cta-btn" data-i18n="MassiveLibrary.cta">Start Digging Now</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+      <div class="container">
+        <h2 class="pricing-title" data-i18n="Pricing.title">Pricing</h2>
+        <div class="pricing-card-wrapper">
+          <div class="pricing-card">
+            <div class="pricing-card-glow"></div>
+            <div class="pricing-card-inner">
+              <div>
+                <div class="pricing-price">
+                  <p class="pricing-price-main">
+                    <span class="pricing-prefix" data-i18n="Pricing.prefix">Monthly </span>
+                    <span data-i18n="Pricing.price">3,490</span>
+                    <span class="pricing-currency" data-i18n="Pricing.currency">Yen</span>
+                  </p>
+                </div>
+
+                <ul class="pricing-features" id="pricing-features">
+                  <li class="pricing-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span data-i18n="Pricing.features.0">High-quality downloads for life</span>
+                  </li>
+                  <li class="pricing-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span data-i18n="Pricing.features.1">Exclusive DJ edits & remixes</span>
+                  </li>
+                  <li class="pricing-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span data-i18n="Pricing.features.2">Cancel anytime (No strings attached)</span>
+                  </li>
+                </ul>
+
+                <button class="pricing-cta" id="pricing-cta-btn" data-i18n="Pricing.cta">Join Now & Start Digging</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+      <div class="container">
+        <div class="faq-inner">
+          <div class="faq-header fade-in">
+            <h1 class="faq-title" data-i18n="Faq.title">FAQ</h1>
+            <p class="faq-description" data-i18n="Faq.description">Find out why DIGTRACKS is the best record pool for both beginner and expert DJs!</p>
+          </div>
+          <div class="faq-list" id="faq-list">
+            <!-- FAQ items will be inserted by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta" style="background-image: url('https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/7791b4c9-fd6f-4a5b-9047-d1e474a73773-djcity-com/assets/images/crowd_2x-25.png');">
+      <div class="final-cta-overlay"></div>
+      <div class="final-cta-content fade-in">
+        <h2 class="final-cta-title" data-i18n="FinalCta.title">GET STARTED TODAY</h2>
+        <p class="final-cta-subtitle" data-i18n="FinalCta.subtitle">Your Ultimate DJ Record Pool for Premium DJ Music</p>
+        <button class="final-cta-btn" id="final-cta-btn" data-i18n="FinalCta.button">DOWNLOAD NOW</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <div class="footer-wrapper">
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-main">
+          <div class="footer-logo">
+            <a href="/">
+              <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/DigtracksLogo-1767058495526.png?width=360&height=102&resize=contain" alt="DIGTRACKS">
+            </a>
+          </div>
+          <div class="footer-divider"></div>
+          <div class="footer-links">
+            <div class="footer-links-section">
+              <h3 data-i18n="Footer.site">Site</h3>
+              <ul>
+                <li><a href="#" class="footer-link" id="terms-link" data-i18n="Footer.terms">Terms of Use</a></li>
+                <li><a href="#" class="footer-link" id="privacy-link" data-i18n="Footer.privacy">Privacy Policy</a></li>
+                <li><a href="#" class="footer-link" id="cookie-link" data-i18n="Footer.cookie">Cookie Policy</a></li>
+              </ul>
+            </div>
+            <div class="footer-links-section">
+              <h3 data-i18n="Footer.company">Service Overview</h3>
+              <ul>
+                <li><a href="#" class="footer-link" data-i18n="Footer.about">About Us</a></li>
+                <li><a href="#" class="footer-link" data-i18n="Footer.contact">Contact Us</a></li>
+                <li><a href="#" class="footer-link" data-i18n="Footer.faq">FAQ</a></li>
+                <li><a href="#" class="footer-link" data-i18n="Footer.submitMusic">Submit Music</a></li>
+              </ul>
+            </div>
+            <div class="footer-links-section">
+              <h3 data-i18n="Footer.languages">Languages</h3>
+              <ul>
+                <li><a href="#" class="footer-link" data-lang="en" data-i18n="Footer.english">English US</a></li>
+                <li><a href="#" class="footer-link" data-lang="ja" data-i18n="Footer.japanese">Japanese</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="footer-newsletter" data-i18n="Footer.newsletterMessage">Get the latest DJ news, music charts, and updates in your mailbox</p>
+          <button class="footer-newsletter-btn" data-i18n="Footer.newsletterSignup">Newsletter Signup</button>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Registration Modal -->
+  <div class="modal-backdrop" id="registration-modal">
+    <div class="modal">
+      <button class="modal-close" id="modal-close" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-logo">
+            <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/DigtracksLogo-1767058495526.png?width=360&height=102&resize=contain" alt="DIGTRACKS">
+          </div>
+          <div>
+            <h2 class="modal-title" data-i18n="Hero.form.title">Create a free account</h2>
+            <p class="modal-subtitle" data-i18n="Hero.form.subtitle">Professional DJ experience in your hands.</p>
+          </div>
+        </div>
+        <form class="modal-form" id="registration-form">
+          <div class="form-group">
+            <label class="form-label" for="email" data-i18n="Hero.form.email">Email Address</label>
+            <input type="email" class="form-input" id="email" data-i18n-placeholder="Hero.form.emailPlaceholder" placeholder="email@example.com">
+          </div>
+          <div class="form-row" id="name-fields">
+            <div class="form-group">
+              <label class="form-label" for="firstName" data-i18n="Hero.form.firstName">First Name</label>
+              <input type="text" class="form-input" id="firstName" data-i18n-placeholder="Hero.form.firstNamePlaceholder" placeholder="Enter first name">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="lastName" data-i18n="Hero.form.lastName">Last Name</label>
+              <input type="text" class="form-input" id="lastName" data-i18n-placeholder="Hero.form.lastNamePlaceholder" placeholder="Enter last name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="djName" data-i18n="Hero.form.djName">DJ Name</label>
+            <input type="text" class="form-input" id="djName" data-i18n-placeholder="Hero.form.djNamePlaceholder" placeholder="DJ NAME">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="password" data-i18n="Hero.form.password">Password</label>
+            <div class="form-input-password">
+              <input type="password" class="form-input" id="password" data-i18n-placeholder="Hero.form.passwordPlaceholder" placeholder="Enter password">
+              <button type="button" class="form-password-toggle" data-target="password">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" class="eye-icon">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" class="eye-off-icon" style="display: none;">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="confirmPassword" data-i18n="Hero.form.confirmPassword">Confirm Password</label>
+            <div class="form-input-password">
+              <input type="password" class="form-input" id="confirmPassword" data-i18n-placeholder="Hero.form.confirmPasswordPlaceholder" placeholder="Re-enter password">
+              <button type="button" class="form-password-toggle" data-target="confirmPassword">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" class="eye-icon">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" class="eye-off-icon" style="display: none;">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="form-checkbox">
+            <input type="checkbox" id="terms">
+            <label for="terms" data-i18n="Hero.form.terms">By checking this box, you agree to receive marketing emails such as updates, promotions, and offers.</label>
+          </div>
+          <button type="submit" class="form-submit" data-i18n="Hero.form.submit">Register</button>
+          <div class="form-login-prompt">
+            <span data-i18n="Hero.form.loginPrompt">Already have an account?</span>
+            <button type="button" id="login-link" data-i18n="Hero.form.loginButton">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Policy Modal -->
+  <div class="modal-backdrop" id="cookie-modal">
+    <div class="modal policy-modal">
+      <button class="modal-close" data-close-modal="cookie-modal" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <div class="policy-modal-header">
+        <div class="modal-logo">
+          <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/DigtracksLogo-1767058495526.png?width=360&height=102&resize=contain" alt="DIGTRACKS">
+        </div>
+        <h2 class="policy-modal-title" data-i18n="Footer.cookie">Cookie Policy</h2>
+        <div class="policy-modal-divider"></div>
+      </div>
+      <div class="policy-modal-body" id="cookie-policy-content">
+        <!-- Content will be inserted by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Privacy Policy Modal -->
+  <div class="modal-backdrop" id="privacy-modal">
+    <div class="modal policy-modal">
+      <button class="modal-close" data-close-modal="privacy-modal" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <div class="policy-modal-header">
+        <div class="modal-logo">
+          <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/DigtracksLogo-1767058495526.png?width=360&height=102&resize=contain" alt="DIGTRACKS">
+        </div>
+        <h2 class="policy-modal-title" data-i18n="PrivacyPolicy.title">Privacy Policy Terms</h2>
+        <div class="policy-modal-divider"></div>
+      </div>
+      <div class="policy-modal-body" id="privacy-policy-content">
+        <!-- Content will be inserted by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Terms of Use Modal -->
+  <div class="modal-backdrop" id="terms-modal">
+    <div class="modal policy-modal">
+      <button class="modal-close" data-close-modal="terms-modal" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <div class="policy-modal-header">
+        <div class="modal-logo">
+          <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/DigtracksLogo-1767058495526.png?width=360&height=102&resize=contain" alt="DIGTRACKS">
+        </div>
+        <h2 class="policy-modal-title" data-i18n="TermsOfUse.title">Terms of Use</h2>
+        <div class="policy-modal-divider"></div>
+      </div>
+      <div class="policy-modal-body" id="terms-policy-content">
+        <!-- Content will be inserted by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
