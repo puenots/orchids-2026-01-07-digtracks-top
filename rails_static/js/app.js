@@ -341,14 +341,22 @@
     if (!stickyNav || !header) return;
 
     let lastScrollY = window.scrollY;
-    let headerHeight = header.offsetHeight;
+    let ticking = false;
+    const scrollThreshold = 5; // Minimum scroll distance to trigger show/hide
 
-    window.addEventListener('scroll', function() {
+    function updateStickyNav() {
       const currentScrollY = window.scrollY;
+      const scrollDelta = currentScrollY - lastScrollY;
 
-      // Show/hide sticky nav based on scroll direction
-      if (currentScrollY > headerHeight) {
-        if (currentScrollY < lastScrollY) {
+      // Only update if scroll distance exceeds threshold (prevents flickering)
+      if (Math.abs(scrollDelta) < scrollThreshold) {
+        ticking = false;
+        return;
+      }
+
+      // Show sticky nav when page is scrolled and scrolling up
+      if (currentScrollY > 100) {
+        if (scrollDelta < 0) {
           // Scrolling up - show sticky nav
           stickyNav.classList.remove('hidden');
         } else {
@@ -356,11 +364,20 @@
           stickyNav.classList.add('hidden');
         }
       } else {
-        stickyNav.classList.add('hidden');
+        // Near top of page - always show sticky nav
+        stickyNav.classList.remove('hidden');
       }
 
       lastScrollY = currentScrollY;
-    });
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(updateStickyNav);
+        ticking = true;
+      }
+    }, { passive: true });
 
     // Smooth scroll for anchor links
     stickyNav.querySelectorAll('a[href^="#"]').forEach(link => {
@@ -369,7 +386,10 @@
         const targetId = this.getAttribute('href').slice(1);
         const target = document.getElementById(targetId);
         if (target) {
-          const offset = stickyNav.offsetHeight + 20;
+          // Account for both fixed header (80px) and sticky nav height
+          const headerHeight = 80;
+          const stickyNavHeight = stickyNav.offsetHeight;
+          const offset = headerHeight + stickyNavHeight + 20;
           const targetPosition = target.getBoundingClientRect().top + window.scrollY - offset;
           window.scrollTo({
             top: targetPosition,

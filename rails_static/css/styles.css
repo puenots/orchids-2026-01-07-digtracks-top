@@ -56,6 +56,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-top: 80px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -116,11 +117,13 @@ button {
    HEADER NAVIGATION
 ======================================== */
 .header {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 12000;
   background-color: #121212;
   height: 80px;
-  overflow: hidden;
 }
 
 .header-desktop {
@@ -559,15 +562,17 @@ button {
 ======================================== */
 .sticky-nav {
   position: sticky;
-  top: 0;
+  top: 80px;
   z-index: 11000;
   background-color: #121212;
   border-bottom: 1px solid var(--color-border);
-  transition: transform 0.3s;
+  transition: opacity 0.3s, visibility 0.3s;
 }
 
 .sticky-nav.hidden {
-  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .sticky-nav-inner {
