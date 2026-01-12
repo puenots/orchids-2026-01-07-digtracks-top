@@ -191,6 +191,7 @@
         <div class="sticky-nav-inner">
           <div class="sticky-nav-links">
             <a href="#features" class="sticky-nav-link" data-i18n="StickyNav.features">Features</a>
+            <a href="#popular" class="sticky-nav-link" data-i18n="StickyNav.popular">ポピュラー</a>
             <a href="#pricing" class="sticky-nav-link" data-i18n="StickyNav.price">Price</a>
             <a href="#genres" class="sticky-nav-link" data-i18n="StickyNav.genres">Genres</a>
             <a href="#faq" class="sticky-nav-link" data-i18n="StickyNav.faq">FAQ</a>
@@ -389,6 +390,31 @@ Save tracks you find while on the move to your favorites, then download them all
           <span class="genre-tag genre-2000s">2000S</span>
           <span class="genre-tag genre-2010s">2010S</span>
         </div>
+      </div>
+    </section>
+
+    <!-- Popular Section (Genre Ranking) -->
+    <section class="popular" id="popular">
+      <div class="container">
+        <div class="popular-header">
+          <h2 class="popular-title" data-i18n="Popular.title">ポピュラー</h2>
+          <div class="popular-tabs" id="popular-tabs">
+            <button class="popular-tab active" data-genre="HIP HOP">HIP HOP</button>
+            <button class="popular-tab" data-genre="R&B">R&B</button>
+            <button class="popular-tab" data-genre="DANCE">DANCE</button>
+            <button class="popular-tab" data-genre="REGGAE">REGGAE</button>
+            <button class="popular-tab" data-genre="LATIN">LATIN</button>
+            <button class="popular-tab" data-genre="INTERNATIONAL">INTERNATIONAL</button>
+            <button class="popular-tab" data-genre="MAINSTREAM">MAINSTREAM</button>
+          </div>
+        </div>
+
+        <div class="popular-grid" id="popular-grid">
+          <!-- Track cards will be inserted by JS -->
+        </div>
+      </div>
+      <div class="popular-progress">
+        <div class="popular-progress-bar" id="popular-progress-bar"></div>
       </div>
     </section>
 

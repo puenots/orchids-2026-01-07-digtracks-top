@@ -26,6 +26,7 @@
     initLanguageSwitcher();
     initPasswordToggle();
     initPolicyModals();
+    initPopularSection();
   });
 
   // ========================================
@@ -566,6 +567,162 @@
         <p>${t('intro4')}</p>
       </section>
     `;
+  }
+
+  // ========================================
+  // Popular Section (Genre Ranking)
+  // ========================================
+  function initPopularSection() {
+    const tabsContainer = document.getElementById('popular-tabs');
+    const grid = document.getElementById('popular-grid');
+    const progressBar = document.getElementById('popular-progress-bar');
+
+    if (!tabsContainer || !grid || !progressBar) return;
+
+    const GENRES = ['HIP HOP', 'R&B', 'DANCE', 'REGGAE', 'LATIN', 'INTERNATIONAL', 'MAINSTREAM'];
+    const AUTO_SWITCH_INTERVAL = 6000;
+
+    const RANKING_DATA = {
+      'HIP HOP': [
+        { id: 'h1', title: 'Rich Flex', artist: 'Drake & 21 Savage', bpm: 154, key: '12A', artwork: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400&h=400&fit=crop' },
+        { id: 'h2', title: 'Just Wanna Rock', artist: 'Lil Uzi Vert', bpm: 150, key: '4A', artwork: 'https://images.unsplash.com/photo-1514525253344-f8570094d81b?w=400&h=400&fit=crop' },
+        { id: 'h3', title: 'Superhero', artist: 'Metro Boomin', bpm: 117, key: '5A', artwork: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=400&h=400&fit=crop' },
+        { id: 'h4', title: "Creepin'", artist: 'Metro Boomin, The Weeknd & 21 Savage', bpm: 98, key: '1A', artwork: 'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=400&h=400&fit=crop' },
+        { id: 'h5', title: 'Shirt', artist: 'SZA', bpm: 120, key: '8A', artwork: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop' }
+      ],
+      'R&B': [
+        { id: 'r1', title: 'Kill Bill', artist: 'SZA', bpm: 89, key: '11A', artwork: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=400&fit=crop' },
+        { id: 'r2', title: 'Cuff It', artist: 'Beyoncé', bpm: 115, key: '8A', artwork: 'https://images.unsplash.com/photo-1468164016595-6108e4c60c8b?w=400&h=400&fit=crop' },
+        { id: 'r3', title: 'Under The Influence', artist: 'Chris Brown', bpm: 116, key: '6A', artwork: 'https://images.unsplash.com/photo-1518911710364-17ec553bde5d?w=400&h=400&fit=crop' },
+        { id: 'r4', title: 'Snooze', artist: 'SZA', bpm: 143, key: '2B', artwork: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=400&h=400&fit=crop' },
+        { id: 'r5', title: 'Wait For U', artist: 'Future, Drake & Tems', bpm: 84, key: '1A', artwork: 'https://images.unsplash.com/photo-1574672280600-4accfa5b6f98?w=400&h=400&fit=crop' }
+      ],
+      'DANCE': [
+        { id: 'd1', title: "I'm Good (Blue)", artist: 'David Guetta & Bebe Rexha', bpm: 128, key: '6A', artwork: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=400&fit=crop' },
+        { id: 'd2', title: 'Unholy', artist: 'Sam Smith & Kim Petras', bpm: 131, key: '9A', artwork: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=400&h=400&fit=crop' },
+        { id: 'd3', title: 'Forget Me', artist: 'Lewis Capaldi', bpm: 126, key: '2A', artwork: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400&h=400&fit=crop' },
+        { id: 'd4', title: 'B.O.T.A.', artist: 'Eliza Rose', bpm: 137, key: '10A', artwork: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400&h=400&fit=crop' },
+        { id: 'd5', title: 'Deep Down', artist: 'Alok, Ella Eyre & Kenny Dope', bpm: 124, key: '4B', artwork: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=400&fit=crop' }
+      ],
+      'REGGAE': [
+        { id: 're1', title: 'Last Last', artist: 'Burna Boy', bpm: 125, key: '4A', artwork: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400&h=400&fit=crop' },
+        { id: 're2', title: 'Calm Down', artist: 'Rema', bpm: 107, key: '2A', artwork: 'https://images.unsplash.com/photo-1453090927415-5f45085b65c0?w=400&h=400&fit=crop' },
+        { id: 're3', title: 'Essence', artist: 'Wizkid ft. Tems', bpm: 102, key: '11B', artwork: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&h=400&fit=crop' },
+        { id: 're4', title: 'Free Mind', artist: 'Tems', bpm: 95, key: '10A', artwork: 'https://images.unsplash.com/photo-1514533212735-5df27d970db0?w=400&h=400&fit=crop' },
+        { id: 're5', title: 'Rush', artist: 'Ayra Starr', bpm: 102, key: '8A', artwork: 'https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?w=400&h=400&fit=crop' }
+      ],
+      'LATIN': [
+        { id: 'l1', title: 'Tití Me Preguntó', artist: 'Bad Bunny', bpm: 111, key: '9A', artwork: 'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?w=400&h=400&fit=crop' },
+        { id: 'l2', title: 'Me Porto Bonito', artist: 'Bad Bunny & Chencho Corleone', bpm: 92, key: '10A', artwork: 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400&h=400&fit=crop' },
+        { id: 'l3', title: 'Bzrp Music Sessions, Vol. 52', artist: 'Bizarrap & Quevedo', bpm: 128, key: '1B', artwork: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&h=400&fit=crop' },
+        { id: 'l4', title: 'Provenza', artist: 'Karol G', bpm: 125, key: '5A', artwork: 'https://images.unsplash.com/photo-1499415479124-43c32433a620?w=400&h=400&fit=crop' },
+        { id: 'l5', title: 'Despechá', artist: 'Rosalía', bpm: 130, key: '12A', artwork: 'https://images.unsplash.com/photo-1501612780327-45045538702b?w=400&h=400&fit=crop' }
+      ],
+      'INTERNATIONAL': [
+        { id: 'i1', title: 'Ditto', artist: 'NewJeans', bpm: 134, key: '8B', artwork: 'https://images.unsplash.com/photo-1491333078588-55b6733c7de6?w=400&h=400&fit=crop' },
+        { id: 'i2', title: 'OMG', artist: 'NewJeans', bpm: 127, key: '10B', artwork: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=400&fit=crop' },
+        { id: 'i3', title: 'Anti-Hero', artist: 'Taylor Swift', bpm: 97, key: '1B', artwork: 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?w=400&h=400&fit=crop' },
+        { id: 'i4', title: 'Unholy', artist: 'Sam Smith & Kim Petras', bpm: 131, key: '5A', artwork: 'https://images.unsplash.com/photo-1534073828943-f801091bb18c?w=400&h=400&fit=crop' },
+        { id: 'i5', title: "Star Walkin'", artist: 'Lil Nas X', bpm: 142, key: '12A', artwork: 'https://images.unsplash.com/photo-1511735111819-9a3f7709049c?w=400&h=400&fit=crop' }
+      ],
+      'MAINSTREAM': [
+        { id: 'm1', title: 'As It Was', artist: 'Harry Styles', bpm: 174, key: '4A', artwork: 'https://images.unsplash.com/photo-1483412033650-1015ddeb83d1?w=400&h=400&fit=crop' },
+        { id: 'm2', title: 'Bad Habit', artist: 'Steve Lacy', bpm: 169, key: '2A', artwork: 'https://images.unsplash.com/photo-1526218626217-dc65a29bb444?w=400&h=400&fit=crop' },
+        { id: 'm3', title: 'About Damn Time', artist: 'Lizzo', bpm: 109, key: '11B', artwork: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&h=400&fit=crop' },
+        { id: 'm4', title: 'Vegas', artist: 'Doja Cat', bpm: 160, key: '10A', artwork: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=400&h=400&fit=crop' },
+        { id: 'm5', title: 'First Class', artist: 'Jack Harlow', bpm: 107, key: '8A', artwork: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=400&h=400&fit=crop' }
+      ]
+    };
+
+    const CAMELOT_COLORS = {
+      '1A': '#ADFFD6', '2A': '#ADFFAD', '3A': '#D7FFAE', '4A': '#FFFFAD',
+      '5A': '#FFD6AD', '6A': '#FFADAE', '7A': '#FFADD7', '8A': '#FFADFF',
+      '9A': '#D6ADFF', '10A': '#ADAEFF', '11A': '#ADD6FF', '12A': '#ADFFFF',
+      '1B': '#5BFFAD', '2B': '#5CFF5D', '3B': '#AEFF5D', '4B': '#FAFB5B',
+      '5B': '#FEAD5C', '6B': '#F35A5C', '7B': '#FF5CAC', '8B': '#FF5CFE',
+      '9B': '#AD5CFF', '10B': '#5B5CFF', '11B': '#5DADFF', '12B': '#5BFFFF'
+    };
+
+    let currentGenreIndex = 0;
+    let autoSwitchTimer = null;
+    let progressTimer = null;
+    let startTime = Date.now();
+
+    function renderTracks(genre) {
+      const tracks = RANKING_DATA[genre] || [];
+      grid.innerHTML = tracks.map((track, index) => `
+        <div class="popular-track">
+          <div class="popular-track-image">
+            <span class="popular-track-rank">${index + 1}</span>
+            <img src="${track.artwork}" alt="${track.title}" loading="lazy">
+          </div>
+          <div class="popular-track-info">
+            <h3 class="popular-track-title">${track.title}</h3>
+            <div class="popular-track-meta">
+              <span class="popular-track-artist">${track.artist}</span>
+              <div class="popular-track-details">
+                <span class="popular-track-bpm">${track.bpm}</span>
+                <span class="popular-track-separator">/</span>
+                <span class="popular-track-key" style="color: ${CAMELOT_COLORS[track.key] || '#71717a'}">${track.key}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function setActiveTab(index) {
+      const tabs = tabsContainer.querySelectorAll('.popular-tab');
+      tabs.forEach((tab, i) => {
+        tab.classList.toggle('active', i === index);
+      });
+      currentGenreIndex = index;
+      renderTracks(GENRES[index]);
+      resetProgress();
+    }
+
+    function nextGenre() {
+      currentGenreIndex = (currentGenreIndex + 1) % GENRES.length;
+      setActiveTab(currentGenreIndex);
+    }
+
+    function resetProgress() {
+      startTime = Date.now();
+      progressBar.style.width = '0%';
+    }
+
+    function updateProgress() {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min((elapsed / AUTO_SWITCH_INTERVAL) * 100, 100);
+      progressBar.style.width = progress + '%';
+
+      if (elapsed >= AUTO_SWITCH_INTERVAL) {
+        nextGenre();
+      }
+    }
+
+    function startAutoSwitch() {
+      stopAutoSwitch();
+      progressTimer = setInterval(updateProgress, 50);
+    }
+
+    function stopAutoSwitch() {
+      if (progressTimer) {
+        clearInterval(progressTimer);
+        progressTimer = null;
+      }
+    }
+
+    // Tab click handlers
+    tabsContainer.querySelectorAll('.popular-tab').forEach((tab, index) => {
+      tab.addEventListener('click', function() {
+        setActiveTab(index);
+      });
+    });
+
+    // Initialize
+    renderTracks(GENRES[0]);
+    startAutoSwitch();
   }
 
   // ========================================
