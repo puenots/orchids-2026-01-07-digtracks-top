@@ -1,19 +1,17 @@
 import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from 'next-intl/server';
+import {getMessages, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import type { Metadata } from "next";
-import { Oswald } from "next/font/google";
 import "@/app/globals.css";
 
-const oswald = Oswald({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-oswald",
-});
 import VisualEditsMessenger from "../../visual-edits/VisualEditsMessenger";
 import ErrorReporter from "@/components/ErrorReporter";
 import Script from "next/script";
+
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'ja' }];
+}
 
 export const metadata: Metadata = {
   title: "Beatport - The World's Largest Music Store for DJs",
@@ -32,12 +30,20 @@ export default async function RootLayout(props: {
     notFound();
   }
 
+  // Enable static rendering
+  setRequestLocale(locale);
+
   // Providing all messages to the client-side
   const messages = await getMessages();
 
   return (
       <html lang={locale}>
-        <body className={`${oswald.variable} antialiased`}>
+        <head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        </head>
+        <body className="antialiased" style={{ fontFamily: "'Oswald', sans-serif", ["--font-oswald" as string]: "'Oswald', sans-serif" }}>
         <NextIntlClientProvider messages={messages}>
           <Script
             id="orchids-browser-logs"

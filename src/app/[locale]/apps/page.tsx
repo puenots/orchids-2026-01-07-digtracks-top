@@ -1,3 +1,5 @@
+"use client";
+
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ArrowRight, Smartphone, Download, Zap, Music, Disc3, Headphones, Radio, AudioLines } from 'lucide-react';

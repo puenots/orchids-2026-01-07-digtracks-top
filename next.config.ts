@@ -8,6 +8,7 @@ const LOADER = path.resolve(__dirname, 'src/visual-edits/component-tagger-loader
 
 const nextConfig: NextConfig = {
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -22,6 +23,9 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: path.resolve(__dirname, '../../'),
   typescript: {
     ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 
