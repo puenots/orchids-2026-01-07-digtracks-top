@@ -10,10 +10,8 @@ import {
 } from "@/components/ui/input-otp";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
 
 export default function VerifyPage() {
-  const t = useTranslations("Verify");
   const [value, setValue] = React.useState("");
   const [isResending, setIsResending] = React.useState(false);
   const router = useRouter();
@@ -80,15 +78,15 @@ export default function VerifyPage() {
               variants={itemVariants}
               className="text-2xl font-bold tracking-tight text-white"
             >
-              {t("title")}
+              認証コードを確認
             </motion.h1>
             <motion.p
               variants={itemVariants}
               className="text-zinc-400 text-sm font-light"
             >
-              {t.rich("description", {
-                br: () => <br />
-              })}
+              ご登録いただいたメールアドレスに送信された
+              <br />
+              6桁の認証コードを入力してください。
             </motion.p>
           </div>
 
@@ -120,7 +118,7 @@ export default function VerifyPage() {
               disabled={value.length !== 6}
               onClick={() => handleComplete(value)}
             >
-              {t("submit")}
+              認証する
             </Button>
             
             <div className="flex flex-col gap-2">
@@ -129,14 +127,14 @@ export default function VerifyPage() {
                 disabled={isResending}
                 className="text-sm text-zinc-500 hover:text-purple-400 transition-colors disabled:opacity-50"
               >
-                {isResending ? t("resending") : t("resend")}
+                {isResending ? "送信中..." : "コードを再送する"}
               </button>
               
               <button
                 onClick={() => router.back()}
                 className="text-sm text-zinc-500 hover:text-white transition-colors"
               >
-                {t("back")}
+                戻る
               </button>
             </div>
           </motion.div>
