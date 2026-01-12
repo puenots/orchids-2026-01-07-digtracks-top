@@ -120,7 +120,7 @@ button {
   z-index: 12000;
   background-color: #121212;
   height: 80px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .header-desktop {
