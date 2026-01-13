@@ -2211,6 +2211,82 @@ button {
 }
 
 /* ========================================
+   LABEL LOGOS MARQUEE SECTION
+======================================== */
+.label-logos {
+  background-color: black;
+  padding: 48px 0;
+  overflow: hidden;
+  user-select: none;
+}
+
+@media (min-width: 1024px) {
+  .label-logos {
+    padding: 64px 0;
+  }
+}
+
+.label-logos-track {
+  display: flex;
+  animation: label-scroll 40s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@keyframes label-scroll {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.label-logos-track:hover {
+  animation-play-state: paused;
+}
+
+.label-logo-card {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 120px;
+  margin: 0 12px;
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  padding: 24px;
+  transition: background-color 0.3s;
+}
+
+@media (min-width: 768px) {
+  .label-logo-card {
+    width: 280px;
+    height: 160px;
+    margin: 0 16px;
+    padding: 32px;
+  }
+}
+
+.label-logo-card:hover {
+  background-color: #252525;
+}
+
+.label-logo-card img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.5;
+  filter: grayscale(100%);
+  transition: opacity 0.3s, filter 0.3s;
+}
+
+.label-logo-card:hover img {
+  opacity: 0.8;
+  filter: grayscale(50%);
+}
+
+/* ========================================
    FINAL CTA SECTION
 ======================================== */
 .final-cta {
