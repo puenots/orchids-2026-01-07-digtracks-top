@@ -533,12 +533,12 @@
         if (input) {
           if (input.type === 'password') {
             input.type = 'text';
-            if (eyeIcon) eyeIcon.style.display = 'none';
-            if (eyeOffIcon) eyeOffIcon.style.display = 'block';
-          } else {
-            input.type = 'password';
             if (eyeIcon) eyeIcon.style.display = 'block';
             if (eyeOffIcon) eyeOffIcon.style.display = 'none';
+          } else {
+            input.type = 'password';
+            if (eyeIcon) eyeIcon.style.display = 'none';
+            if (eyeOffIcon) eyeOffIcon.style.display = 'block';
           }
         }
       });
