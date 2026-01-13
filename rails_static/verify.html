@@ -34,6 +34,84 @@
       pointer-events: none;
     }
 
+    /* Language Switcher */
+    .lang-switcher {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 100;
+    }
+
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(39, 39, 42, 0.8);
+      border: 1px solid #3f3f46;
+      border-radius: 9999px;
+      padding: 8px 16px;
+      color: white;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      backdrop-filter: blur(8px);
+    }
+
+    .lang-toggle:hover {
+      background: rgba(147, 51, 234, 0.3);
+      border-color: #9333ea;
+    }
+
+    .lang-toggle svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .lang-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 140px;
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 8px;
+      padding: 4px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: all 0.2s;
+    }
+
+    .lang-switcher.open .lang-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .lang-option {
+      display: block;
+      width: 100%;
+      padding: 10px 12px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: #a1a1aa;
+      font-size: 0.875rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-option:hover {
+      background: #27272a;
+      color: white;
+    }
+
+    .lang-option.active {
+      color: #a855f7;
+    }
+
     .verify-container {
       position: relative;
       z-index: 10;
@@ -233,6 +311,24 @@
 </head>
 <body>
   <div class="verify-page">
+    <!-- Language Switcher -->
+    <div class="lang-switcher" id="lang-switcher">
+      <button class="lang-toggle" id="lang-toggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <span id="current-lang">JA</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+      <div class="lang-dropdown">
+        <button class="lang-option" data-lang="en">English (US)</button>
+        <button class="lang-option" data-lang="ja">日本語 (JA)</button>
+      </div>
+    </div>
+
     <!-- Background Glow -->
     <div class="verify-bg-glow"></div>
 
@@ -290,9 +386,59 @@
           window.i18n.init();
         }
 
+        initLanguageSwitcher();
         initOTPInput();
         initVerifyActions();
       });
+
+      function initLanguageSwitcher() {
+        const switcher = document.getElementById('lang-switcher');
+        const toggle = document.getElementById('lang-toggle');
+        const currentLang = document.getElementById('current-lang');
+        const options = document.querySelectorAll('.lang-option');
+
+        // Update display on init
+        updateLangDisplay();
+
+        // Toggle dropdown
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          switcher.classList.toggle('open');
+        });
+
+        // Close on outside click
+        document.addEventListener('click', function(e) {
+          if (!switcher.contains(e.target)) {
+            switcher.classList.remove('open');
+          }
+        });
+
+        // Handle language selection
+        options.forEach(option => {
+          option.addEventListener('click', function() {
+            const lang = this.getAttribute('data-lang');
+            if (window.i18n) {
+              window.i18n.setLocale(lang);
+            }
+            updateLangDisplay();
+            switcher.classList.remove('open');
+          });
+        });
+
+        // Listen for locale changes
+        window.addEventListener('localeChanged', updateLangDisplay);
+
+        function updateLangDisplay() {
+          if (window.i18n) {
+            currentLang.textContent = window.i18n.currentLocale.toUpperCase();
+
+            // Update active state
+            options.forEach(opt => {
+              opt.classList.toggle('active', opt.getAttribute('data-lang') === window.i18n.currentLocale);
+            });
+          }
+        }
+      }
 
       function initOTPInput() {
         const otpInputs = document.querySelectorAll('.otp-input');
