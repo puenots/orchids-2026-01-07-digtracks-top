@@ -287,7 +287,7 @@ const translations = {
     },
     Hero: {
       badge: "DIGTRACKSで、あなたのDJが変わる。",
-      title: "豊富な音源、選曲の即戦力に。<br>今すぐ始めましょう",
+      title: "豊富な音源、選曲の<span style=\"white-space: nowrap;\">即戦力に。</span><br>今すぐ始めましょう",
       form: {
         title: "無料アカウントを作成する",
         subtitle: "プロフェッショナルなDJ体験を、あなたの手に。",
