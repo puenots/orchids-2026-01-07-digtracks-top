@@ -43,10 +43,8 @@
         "submit": "Register",
         "loginPrompt": "Already have an account?",
         "loginButton": "Login",
-        "validation": {
-          "passwordMinLength": "Password must be at least 8 characters.",
-          "passwordMismatch": "Passwords do not match."
-        }
+        "passwordMinLengthError": "Password must be at least 8 characters.",
+        "passwordMismatchError": "Passwords do not match."
       }
   },
   "Features": {

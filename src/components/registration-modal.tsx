@@ -32,7 +32,7 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
 
   const validatePassword = (value: string) => {
     if (value.length > 0 && value.length < MIN_PASSWORD_LENGTH) {
-      setPasswordError(t("validation.passwordMinLength"));
+      setPasswordError(t("passwordMinLengthError"));
       return false;
     }
     setPasswordError("");
@@ -41,7 +41,7 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
 
   const validateConfirmPassword = (value: string, passwordValue: string) => {
     if (value.length > 0 && value !== passwordValue) {
-      setConfirmPasswordError(t("validation.passwordMismatch"));
+      setConfirmPasswordError(t("passwordMismatchError"));
       return false;
     }
     setConfirmPasswordError("");
