@@ -42,7 +42,9 @@
         "privacyPolicy": "Privacy Policy",
         "submit": "Register",
         "loginPrompt": "Already have an account?",
-        "loginButton": "Login"
+        "loginButton": "Login",
+        "passwordMinLengthError": "Password must be at least 8 characters.",
+        "passwordMismatchError": "Passwords do not match."
       }
   },
   "Features": {

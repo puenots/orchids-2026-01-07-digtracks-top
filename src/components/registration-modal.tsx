@@ -16,16 +16,47 @@ interface RegistrationModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
+const MIN_PASSWORD_LENGTH = 8;
+
+// Error messages (hardcoded to ensure they always display)
+const ERROR_MESSAGES = {
+  en: {
+    passwordMinLength: "Password must be at least 8 characters.",
+    passwordMismatch: "Passwords do not match.",
+  },
+  ja: {
+    passwordMinLength: "パスワードは8文字以上で入力してください。",
+    passwordMismatch: "パスワードが一致しません。",
+  },
+};
+
 export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps) {
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
   const locale = useLocale();
   const router = useRouter();
   const t = useTranslations("Hero.form");
   const isJa = locale === "ja";
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const messages = ERROR_MESSAGES[isJa ? "ja" : "en"];
+
+  // Compute validation state directly (no useMemo)
+  const passwordTooShort = password.length > 0 && password.length < MIN_PASSWORD_LENGTH;
+  const passwordsDoNotMatch = confirmPassword.length > 0 && password !== confirmPassword;
+  const isFormValid = password.length >= MIN_PASSWORD_LENGTH && confirmPassword.length > 0 && password === confirmPassword;
+
+  const handleSubmit = () => {
+    // Validate before submitting
+    if (password.length < MIN_PASSWORD_LENGTH) {
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      return;
+    }
+
     router.push("/auth/verify");
   };
 
@@ -98,7 +129,7 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
             </div>
           </DialogHeader>
 
-            <form className="grid gap-5" onSubmit={handleSubmit}>
+            <div className="grid gap-5">
 
             <div className="grid gap-2">
               <Label htmlFor="email" className="text-xs font-medium uppercase tracking-wider text-zinc-500">
@@ -130,11 +161,13 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
                 {t("password")}
               </Label>
               <div className="relative">
-                <Input 
+                <input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder={t("passwordPlaceholder")}
-                  className="bg-zinc-900 border-zinc-800 text-white focus:ring-purple-600 focus:border-purple-600 pr-10"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={`flex h-9 w-full rounded-md border px-3 py-1 text-base outline-none bg-zinc-900 border-zinc-800 text-white focus:ring-purple-600 focus:border-purple-600 pr-10 ${passwordTooShort ? "border-red-500" : ""}`}
                 />
                 <button
                   type="button"
@@ -144,6 +177,9 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
+              {passwordTooShort && (
+                <p className="text-red-500 text-xs mt-1">{messages.passwordMinLength}</p>
+              )}
             </div>
 
             <div className="grid gap-2">
@@ -151,11 +187,13 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
                 {t("confirmPassword")}
               </Label>
               <div className="relative">
-                <Input 
+                <input
                   id="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder={t("confirmPasswordPlaceholder")}
-                  className="bg-zinc-900 border-zinc-800 text-white focus:ring-purple-600 focus:border-purple-600 pr-10"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className={`flex h-9 w-full rounded-md border px-3 py-1 text-base outline-none bg-zinc-900 border-zinc-800 text-white focus:ring-purple-600 focus:border-purple-600 pr-10 ${passwordsDoNotMatch ? "border-red-500" : ""}`}
                 />
                 <button
                   type="button"
@@ -165,6 +203,9 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
                   {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
+              {passwordsDoNotMatch && (
+                <p className="text-red-500 text-xs mt-1">{messages.passwordMismatch}</p>
+              )}
             </div>
 
             <div className="flex items-start space-x-3 pt-2">
@@ -180,10 +221,19 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
               </Label>
             </div>
 
-            <Button className="w-full bg-zinc-800 hover:bg-purple-600 text-white h-12 font-bold text-base mt-2 transition-all">
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={!isFormValid}
+              className={`w-full text-white h-12 font-bold text-base mt-2 transition-all rounded-md ${
+                !isFormValid
+                  ? "bg-zinc-600 cursor-not-allowed opacity-50"
+                  : "bg-zinc-800 hover:bg-purple-600"
+              }`}
+            >
               {t("submit")}
-            </Button>
-            
+            </button>
+
             <div className="text-center pt-2">
               <p className="text-sm text-zinc-500">
                 {t("loginPrompt")}{" "}
@@ -192,7 +242,7 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
                 </button>
               </p>
             </div>
-          </form>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

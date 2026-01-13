@@ -255,6 +255,12 @@ const translations = {
       rememberPassword: "Remember your password?",
       backToSignIn: "Back to Sign In",
       successMessage: "We've sent a password reset link to your email. Please check your inbox."
+    },
+    Validation: {
+      password: {
+        minLength: "Password must be at least 8 characters.",
+        mismatch: "Passwords do not match."
+      }
     }
   },
   ja: {
@@ -508,6 +514,12 @@ const translations = {
       rememberPassword: "パスワードを思い出しましたか？",
       backToSignIn: "サインインに戻る",
       successMessage: "パスワードリセット用のリンクをメールで送信しました。メールをご確認ください。"
+    },
+    Validation: {
+      password: {
+        minLength: "パスワードは8文字以上で入力してください。",
+        mismatch: "パスワードが一致しません。"
+      }
     }
   }
 };

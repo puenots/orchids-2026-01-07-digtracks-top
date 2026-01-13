@@ -204,12 +204,108 @@
       }
     });
 
-    // Form submission
+    // Form submission with password validation
     const form = document.getElementById('registration-form');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const submitButton = document.getElementById('registration-submit');
+    const passwordError = document.getElementById('password-error');
+    const confirmPasswordError = document.getElementById('confirmPassword-error');
+    const MIN_PASSWORD_LENGTH = 8;
+
+    function getErrorMessage(type) {
+      if (window.i18n) {
+        if (type === 'minLength') {
+          return window.i18n.t('Validation.password.minLength');
+        } else if (type === 'mismatch') {
+          return window.i18n.t('Validation.password.mismatch');
+        }
+      }
+      // Fallback messages
+      if (type === 'minLength') {
+        return 'パスワードは8文字以上で入力してください。';
+      }
+      return 'パスワードが一致しません。';
+    }
+
+    function validateAndUpdate() {
+      if (!passwordInput || !confirmPasswordInput || !submitButton) return;
+
+      const password = passwordInput.value;
+      const confirmPassword = confirmPasswordInput.value;
+
+      // Check password length
+      const passwordTooShort = password.length > 0 && password.length < MIN_PASSWORD_LENGTH;
+      if (passwordTooShort && passwordError) {
+        passwordInput.style.borderColor = '#ef4444';
+        passwordError.textContent = getErrorMessage('minLength');
+        passwordError.style.display = 'block';
+      } else if (passwordError) {
+        passwordInput.style.borderColor = '';
+        passwordError.style.display = 'none';
+      }
+
+      // Check password match
+      const passwordsDoNotMatch = confirmPassword.length > 0 && password !== confirmPassword;
+      if (passwordsDoNotMatch && confirmPasswordError) {
+        confirmPasswordInput.style.borderColor = '#ef4444';
+        confirmPasswordError.textContent = getErrorMessage('mismatch');
+        confirmPasswordError.style.display = 'block';
+      } else if (confirmPasswordError) {
+        confirmPasswordInput.style.borderColor = '';
+        confirmPasswordError.style.display = 'none';
+      }
+
+      // Update button state
+      const isValid = password.length >= MIN_PASSWORD_LENGTH &&
+                     confirmPassword.length > 0 &&
+                     password === confirmPassword;
+
+      submitButton.disabled = !isValid;
+      if (isValid) {
+        submitButton.style.backgroundColor = '';
+        submitButton.style.cursor = '';
+        submitButton.style.opacity = '';
+      } else {
+        submitButton.style.backgroundColor = '#52525b';
+        submitButton.style.cursor = 'not-allowed';
+        submitButton.style.opacity = '0.5';
+      }
+    }
+
+    // Add event listeners
+    if (passwordInput) {
+      passwordInput.addEventListener('input', validateAndUpdate);
+      passwordInput.addEventListener('keyup', validateAndUpdate);
+    }
+
+    if (confirmPasswordInput) {
+      confirmPasswordInput.addEventListener('input', validateAndUpdate);
+      confirmPasswordInput.addEventListener('keyup', validateAndUpdate);
+    }
+
     if (form) {
       form.addEventListener('submit', function(e) {
         e.preventDefault();
-        // Redirect to verification page
+
+        const password = passwordInput ? passwordInput.value : '';
+        const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : '';
+
+        // Validate password length
+        if (password.length < MIN_PASSWORD_LENGTH) {
+          validateAndUpdate();
+          if (passwordInput) passwordInput.focus();
+          return;
+        }
+
+        // Validate password match
+        if (password !== confirmPassword) {
+          validateAndUpdate();
+          if (confirmPasswordInput) confirmPasswordInput.focus();
+          return;
+        }
+
+        // All validations passed, redirect to verification page
         window.location.href = 'verify.html';
       });
     }
@@ -437,12 +533,12 @@
         if (input) {
           if (input.type === 'password') {
             input.type = 'text';
-            if (eyeIcon) eyeIcon.style.display = 'none';
-            if (eyeOffIcon) eyeOffIcon.style.display = 'block';
-          } else {
-            input.type = 'password';
             if (eyeIcon) eyeIcon.style.display = 'block';
             if (eyeOffIcon) eyeOffIcon.style.display = 'none';
+          } else {
+            input.type = 'password';
+            if (eyeIcon) eyeIcon.style.display = 'none';
+            if (eyeOffIcon) eyeOffIcon.style.display = 'block';
           }
         }
       });

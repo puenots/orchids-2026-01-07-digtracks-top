@@ -627,38 +627,40 @@ Save tracks you find while on the move to your favorites, then download them all
             <div class="form-input-password">
               <input type="password" class="form-input" id="password" data-i18n-placeholder="Hero.form.passwordPlaceholder" placeholder="Enter password">
               <button type="button" class="form-password-toggle" data-target="password">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" class="eye-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" class="eye-icon" style="display: none;">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                   <circle cx="12" cy="12" r="3"/>
                 </svg>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" class="eye-off-icon" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" class="eye-off-icon">
                   <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
                   <line x1="1" y1="1" x2="23" y2="23"/>
                 </svg>
               </button>
             </div>
+            <p id="password-error" class="form-error-message" style="color: #ef4444; font-size: 0.75rem; margin-top: 4px; display: none;"></p>
           </div>
           <div class="form-group">
             <label class="form-label" for="confirmPassword" data-i18n="Hero.form.confirmPassword">Confirm Password</label>
             <div class="form-input-password">
               <input type="password" class="form-input" id="confirmPassword" data-i18n-placeholder="Hero.form.confirmPasswordPlaceholder" placeholder="Re-enter password">
               <button type="button" class="form-password-toggle" data-target="confirmPassword">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" class="eye-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" class="eye-icon" style="display: none;">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                   <circle cx="12" cy="12" r="3"/>
                 </svg>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" class="eye-off-icon" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" class="eye-off-icon">
                   <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
                   <line x1="1" y1="1" x2="23" y2="23"/>
                 </svg>
               </button>
             </div>
+            <p id="confirmPassword-error" class="form-error-message" style="color: #ef4444; font-size: 0.75rem; margin-top: 4px; display: none;"></p>
           </div>
           <div class="form-checkbox">
             <input type="checkbox" id="terms">
             <label for="terms" data-i18n="Hero.form.terms">By checking this box, you agree to receive marketing emails such as updates, promotions, and offers.</label>
           </div>
-          <button type="submit" class="form-submit" data-i18n="Hero.form.submit">Register</button>
+          <button type="submit" class="form-submit" id="registration-submit" disabled style="background-color: #52525b; cursor: not-allowed; opacity: 0.5;" data-i18n="Hero.form.submit">Register</button>
           <div class="form-login-prompt">
             <span data-i18n="Hero.form.loginPrompt">Already have an account?</span>
             <button type="button" id="login-link" data-i18n="Hero.form.loginButton">Login</button>
@@ -732,7 +734,7 @@ Save tracks you find while on the move to your favorites, then download them all
   </div>
 
   <!-- Scripts -->
-  <script src="js/i18n.js?v=4"></script>
-  <script src="js/app.js?v=2"></script>
+  <script src="js/i18n.js?v=6"></script>
+  <script src="js/app.js?v=6"></script>
 </body>
 </html>
