@@ -1272,22 +1272,25 @@ button {
 
 .genres-marquee {
   display: flex;
-  animation: marquee 30s linear infinite;
+  animation: marquee 15s linear infinite;
   padding: 4px 0;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .genres-marquee.reverse {
-  animation: marquee-reverse 35s linear infinite;
+  animation: marquee-reverse 18s linear infinite;
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
 @keyframes marquee-reverse {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 .genres-marquee:hover {
@@ -1296,6 +1299,7 @@ button {
 
 .genre-tag {
   display: inline-flex;
+  flex-shrink: 0;
   padding: 12px 24px;
   border: 1px solid currentColor;
   border-radius: 9999px;
@@ -1660,13 +1664,16 @@ button {
 
 .software-logos-track {
   display: flex;
-  animation: logo-scroll 30s linear infinite;
+  animation: logo-scroll 20s linear infinite;
   padding: 16px 0;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 @keyframes logo-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
 .software-logo {
