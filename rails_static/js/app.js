@@ -163,14 +163,13 @@
       }
     });
 
-    // Login buttons - show alert (placeholder for actual login)
+    // Login buttons - redirect to signin page
     const loginButtons = ['login-btn', 'mobile-login-btn'];
     loginButtons.forEach(id => {
       const btn = document.getElementById(id);
       if (btn) {
         btn.addEventListener('click', function() {
-          // TODO: Replace with actual login URL when available
-          alert('ログインページは準備中です / Login page coming soon');
+          window.location.href = 'https://www.digtracks.com/signin';
         });
       }
     });
@@ -180,8 +179,7 @@
     if (loginLink) {
       loginLink.addEventListener('click', function() {
         closeModal(modal);
-        // TODO: Replace with actual login URL when available
-        alert('ログインページは準備中です / Login page coming soon');
+        window.location.href = 'https://www.digtracks.com/signin';
       });
     }
 
