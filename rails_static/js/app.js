@@ -145,10 +145,8 @@
 
     if (!modal) return;
 
-    // Buttons that open modal
+    // Buttons that open registration modal (CTA buttons only)
     const openButtons = [
-      'login-btn',
-      'mobile-login-btn',
       'hero-cta-btn',
       'sticky-cta-btn',
       'pricing-cta-btn',
@@ -164,6 +162,28 @@
         });
       }
     });
+
+    // Login buttons - redirect to login page
+    const loginButtons = ['login-btn', 'mobile-login-btn'];
+    loginButtons.forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn) {
+        btn.addEventListener('click', function() {
+          // Redirect to login page (placeholder - update with actual login URL)
+          window.location.href = 'https://app.digtracks.com/login';
+        });
+      }
+    });
+
+    // Login link inside registration modal
+    const loginLink = document.getElementById('login-link');
+    if (loginLink) {
+      loginLink.addEventListener('click', function() {
+        closeModal(modal);
+        // Redirect to login page
+        window.location.href = 'https://app.digtracks.com/login';
+      });
+    }
 
     // Close button
     if (modalClose) {
