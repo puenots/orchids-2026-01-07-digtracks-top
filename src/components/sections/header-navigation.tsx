@@ -241,14 +241,13 @@ const DesktopNav = ({
         />
 
           <div onMouseEnter={() => handleEnter("")}>
-            <Link href="/auth/signin">
-              <Button
-                variant="outline"
-                className="h-[38px] rounded-md border-[#666] bg-transparent px-5 text-sm text-white hover:bg-[#5e17eb] hover:text-white hover:border-[#5e17eb]"
-              >
-                {t("login")}
-              </Button>
-            </Link>
+            <Button
+              asChild
+              variant="outline"
+              className="h-[38px] rounded-md border-[#666] bg-transparent px-5 text-sm text-white hover:bg-[#5e17eb] hover:text-white hover:border-[#5e17eb]"
+            >
+              <Link href="/auth/signin">{t("login")}</Link>
+            </Button>
           </div>
 
       </div>
@@ -389,14 +388,15 @@ const MobileNav = ({
             handleEnter={handleEnter}
             handleLeave={handleLeave}
           />
-            <Link href="/auth/signin" onClick={() => onOpenChange(false)}>
-              <Button
-                variant="outline"
-                className="w-full border-[#666] h-11 text-base hover:bg-[#5e17eb] hover:text-white hover:border-[#5e17eb]"
-              >
+            <Button
+              asChild
+              variant="outline"
+              className="w-full border-[#666] h-11 text-base hover:bg-[#5e17eb] hover:text-white hover:border-[#5e17eb]"
+            >
+              <Link href="/auth/signin" onClick={() => onOpenChange(false)}>
                 {t("login")}
-              </Button>
-            </Link>
+              </Link>
+            </Button>
 
         </div>
       </SheetContent>
