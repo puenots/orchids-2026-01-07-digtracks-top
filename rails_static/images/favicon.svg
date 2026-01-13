@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <!-- Purple circular background -->
+  <circle cx="250" cy="250" r="250" fill="#6C2FEB"/>
+
+  <!-- White "d" shape - the stem curves up and around -->
+  <path d="M290 50
+           Q340 50 340 100
+           L340 160
+           Q420 180 460 280
+           Q490 360 440 430
+           Q390 490 290 490
+           Q180 490 130 410
+           Q80 330 130 230
+           Q170 160 260 140
+           L260 100
+           Q260 50 290 50Z"
+        fill="white"/>
+
+  <!-- Purple inner circle (cutout for the "d" bowl) -->
+  <circle cx="285" cy="310" r="110" fill="#6C2FEB"/>
+
+  <!-- White play button triangle -->
+  <polygon points="255,260 255,360 335,310" fill="white"/>
+</svg>
