@@ -1470,19 +1470,22 @@ button {
 
 .popular-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
+  align-items: start;
 }
 
 @media (min-width: 768px) {
   .popular-grid {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 24px;
+    align-items: start;
   }
 }
 
 .popular-track {
   position: relative;
+  min-width: 0;
 }
 
 .popular-track-image {
@@ -1526,6 +1529,7 @@ button {
 
 .popular-track-info {
   padding: 0 4px;
+  overflow: hidden;
 }
 
 .popular-track-title {
@@ -1554,6 +1558,8 @@ button {
   align-items: center;
   gap: 8px;
   margin-top: 4px;
+  overflow: hidden;
+  min-width: 0;
 }
 
 .popular-track-artist {
@@ -1563,6 +1569,8 @@ button {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  min-width: 0;
+  flex: 1;
 }
 
 @media (min-width: 768px) {
