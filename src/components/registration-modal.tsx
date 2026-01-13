@@ -16,16 +16,67 @@ interface RegistrationModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
+const MIN_PASSWORD_LENGTH = 8;
+
 export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps) {
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [passwordError, setPasswordError] = React.useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = React.useState("");
   const locale = useLocale();
   const router = useRouter();
   const t = useTranslations("Hero.form");
   const isJa = locale === "ja";
 
+  const validatePassword = (value: string) => {
+    if (value.length > 0 && value.length < MIN_PASSWORD_LENGTH) {
+      setPasswordError(t("validation.passwordMinLength"));
+      return false;
+    }
+    setPasswordError("");
+    return true;
+  };
+
+  const validateConfirmPassword = (value: string, passwordValue: string) => {
+    if (value.length > 0 && value !== passwordValue) {
+      setConfirmPasswordError(t("validation.passwordMismatch"));
+      return false;
+    }
+    setConfirmPasswordError("");
+    return true;
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPassword(value);
+    validatePassword(value);
+    if (confirmPassword) {
+      validateConfirmPassword(confirmPassword, value);
+    }
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+    validateConfirmPassword(value, password);
+  };
+
+  const isFormValid = () => {
+    return password.length >= MIN_PASSWORD_LENGTH && password === confirmPassword;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const isPasswordValid = validatePassword(password);
+    const isConfirmValid = validateConfirmPassword(confirmPassword, password);
+
+    if (!isPasswordValid || !isConfirmValid || password.length < MIN_PASSWORD_LENGTH) {
+      return;
+    }
+
     router.push("/auth/verify");
   };
 
@@ -130,11 +181,14 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
                 {t("password")}
               </Label>
               <div className="relative">
-                <Input 
+                <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder={t("passwordPlaceholder")}
-                  className="bg-zinc-900 border-zinc-800 text-white focus:ring-purple-600 focus:border-purple-600 pr-10"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  minLength={MIN_PASSWORD_LENGTH}
+                  className={`bg-zinc-900 border-zinc-800 text-white focus:ring-purple-600 focus:border-purple-600 pr-10 ${passwordError ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
                 />
                 <button
                   type="button"
@@ -144,6 +198,9 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
+              {passwordError && (
+                <p className="text-red-500 text-xs mt-1">{passwordError}</p>
+              )}
             </div>
 
             <div className="grid gap-2">
@@ -151,11 +208,13 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
                 {t("confirmPassword")}
               </Label>
               <div className="relative">
-                <Input 
+                <Input
                   id="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder={t("confirmPasswordPlaceholder")}
-                  className="bg-zinc-900 border-zinc-800 text-white focus:ring-purple-600 focus:border-purple-600 pr-10"
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
+                  className={`bg-zinc-900 border-zinc-800 text-white focus:ring-purple-600 focus:border-purple-600 pr-10 ${confirmPasswordError ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
                 />
                 <button
                   type="button"
@@ -165,6 +224,9 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
                   {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
+              {confirmPasswordError && (
+                <p className="text-red-500 text-xs mt-1">{confirmPasswordError}</p>
+              )}
             </div>
 
             <div className="flex items-start space-x-3 pt-2">
@@ -180,7 +242,14 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
               </Label>
             </div>
 
-            <Button className="w-full bg-zinc-800 hover:bg-purple-600 text-white h-12 font-bold text-base mt-2 transition-all">
+            <Button
+              className={`w-full text-white h-12 font-bold text-base mt-2 transition-all ${
+                !isFormValid() && (password.length > 0 || confirmPassword.length > 0)
+                  ? "bg-zinc-600 cursor-not-allowed"
+                  : "bg-zinc-800 hover:bg-purple-600"
+              }`}
+              disabled={!isFormValid() && (password.length > 0 || confirmPassword.length > 0)}
+            >
               {t("submit")}
             </Button>
             

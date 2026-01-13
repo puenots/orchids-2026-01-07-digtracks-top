@@ -42,7 +42,11 @@
         "privacyPolicy": "プライバシーポリシー",
         "submit": "登録する",
         "loginPrompt": "アカウントをお持ちですか？",
-        "loginButton": "ログイン"
+        "loginButton": "ログイン",
+        "validation": {
+          "passwordMinLength": "パスワードは8文字以上で入力してください。",
+          "passwordMismatch": "パスワードが一致しません。"
+        }
       }
   },
   "Features": {
