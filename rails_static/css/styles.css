@@ -1155,6 +1155,15 @@ button {
   transform: scale(1.1) translateY(-16px);
 }
 
+.impact-card-mobile img {
+  object-position: 35% top;
+  transform: scale(1.3);
+}
+
+.impact-card-mobile:hover img {
+  transform: scale(1.4) translateY(-16px);
+}
+
 .impact-card-overlay {
   position: absolute;
   inset: 0;
