@@ -535,19 +535,31 @@ const i18n = {
     // Update text content
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      el.textContent = this.t(key);
+      const translated = this.t(key);
+      // Only update if translation was found (not returning the key itself)
+      if (translated !== key) {
+        el.textContent = translated;
+      }
     });
 
     // Update HTML content (for elements with <br> etc.)
     document.querySelectorAll('[data-i18n-html]').forEach(el => {
       const key = el.getAttribute('data-i18n-html');
-      el.innerHTML = this.t(key);
+      const translated = this.t(key);
+      // Only update if translation was found (not returning the key itself)
+      if (translated !== key) {
+        el.innerHTML = translated;
+      }
     });
 
     // Update placeholders
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
       const key = el.getAttribute('data-i18n-placeholder');
-      el.placeholder = this.t(key);
+      const translated = this.t(key);
+      // Only update if translation was found (not returning the key itself)
+      if (translated !== key) {
+        el.placeholder = translated;
+      }
     });
 
     // Update HTML lang attribute
