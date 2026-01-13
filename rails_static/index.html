@@ -637,6 +637,7 @@ Save tracks you find while on the move to your favorites, then download them all
                 </svg>
               </button>
             </div>
+            <p id="password-error" class="form-error-message" style="color: #ef4444; font-size: 0.75rem; margin-top: 4px; display: none;"></p>
           </div>
           <div class="form-group">
             <label class="form-label" for="confirmPassword" data-i18n="Hero.form.confirmPassword">Confirm Password</label>
@@ -653,12 +654,13 @@ Save tracks you find while on the move to your favorites, then download them all
                 </svg>
               </button>
             </div>
+            <p id="confirmPassword-error" class="form-error-message" style="color: #ef4444; font-size: 0.75rem; margin-top: 4px; display: none;"></p>
           </div>
           <div class="form-checkbox">
             <input type="checkbox" id="terms">
             <label for="terms" data-i18n="Hero.form.terms">By checking this box, you agree to receive marketing emails such as updates, promotions, and offers.</label>
           </div>
-          <button type="submit" class="form-submit" data-i18n="Hero.form.submit">Register</button>
+          <button type="submit" class="form-submit" id="registration-submit" disabled style="background-color: #52525b; cursor: not-allowed; opacity: 0.5;" data-i18n="Hero.form.submit">Register</button>
           <div class="form-login-prompt">
             <span data-i18n="Hero.form.loginPrompt">Already have an account?</span>
             <button type="button" id="login-link" data-i18n="Hero.form.loginButton">Login</button>
@@ -732,7 +734,7 @@ Save tracks you find while on the move to your favorites, then download them all
   </div>
 
   <!-- Scripts -->
-  <script src="js/i18n.js?v=4"></script>
-  <script src="js/app.js?v=3"></script>
+  <script src="js/i18n.js?v=5"></script>
+  <script src="js/app.js?v=5"></script>
 </body>
 </html>

@@ -206,131 +206,85 @@
 
     // Form submission with password validation
     const form = document.getElementById('registration-form');
-    if (form) {
-      const passwordInput = document.getElementById('password');
-      const confirmPasswordInput = document.getElementById('confirmPassword');
-      const submitButton = form.querySelector('.form-submit');
-      const MIN_PASSWORD_LENGTH = 8;
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const submitButton = document.getElementById('registration-submit');
+    const passwordError = document.getElementById('password-error');
+    const confirmPasswordError = document.getElementById('confirmPassword-error');
+    const MIN_PASSWORD_LENGTH = 8;
 
-      // Create error message elements
-      function createErrorElement(inputId) {
-        const existingError = document.getElementById(inputId + '-error');
-        if (existingError) return existingError;
-
-        const error = document.createElement('p');
-        error.id = inputId + '-error';
-        error.className = 'form-error-message';
-        error.style.cssText = 'color: #ef4444; font-size: 0.75rem; margin-top: 4px; display: none;';
-        return error;
-      }
-
-      // Insert error elements after password wrappers
-      if (passwordInput) {
-        const passwordWrapper = passwordInput.closest('.form-input-password') || passwordInput.parentElement;
-        const passwordError = createErrorElement('password');
-        passwordWrapper.parentElement.appendChild(passwordError);
-      }
-
-      if (confirmPasswordInput) {
-        const confirmWrapper = confirmPasswordInput.closest('.form-input-password') || confirmPasswordInput.parentElement;
-        const confirmError = createErrorElement('confirmPassword');
-        confirmWrapper.parentElement.appendChild(confirmError);
-      }
-
-      function getErrorMessage(type) {
-        if (window.i18n) {
-          if (type === 'minLength') {
-            return window.i18n.t('Validation.password.minLength');
-          } else if (type === 'mismatch') {
-            return window.i18n.t('Validation.password.mismatch');
-          }
-        }
-        // Fallback messages
+    function getErrorMessage(type) {
+      if (window.i18n) {
         if (type === 'minLength') {
-          return 'パスワードは8文字以上で入力してください。';
-        }
-        return 'パスワードが一致しません。';
-      }
-
-      function validatePassword() {
-        if (!passwordInput) return true;
-        const value = passwordInput.value;
-        const errorEl = document.getElementById('password-error');
-        const isValid = value.length === 0 || value.length >= MIN_PASSWORD_LENGTH;
-
-        if (!isValid && errorEl) {
-          passwordInput.classList.add('error');
-          errorEl.textContent = getErrorMessage('minLength');
-          errorEl.style.display = 'block';
-        } else if (errorEl) {
-          passwordInput.classList.remove('error');
-          errorEl.style.display = 'none';
-        }
-
-        return value.length === 0 || value.length >= MIN_PASSWORD_LENGTH;
-      }
-
-      function validateConfirmPassword() {
-        if (!confirmPasswordInput || !passwordInput) return true;
-        const value = confirmPasswordInput.value;
-        const passwordValue = passwordInput.value;
-        const errorEl = document.getElementById('confirmPassword-error');
-        const isValid = value.length === 0 || value === passwordValue;
-
-        if (!isValid && errorEl) {
-          confirmPasswordInput.classList.add('error');
-          errorEl.textContent = getErrorMessage('mismatch');
-          errorEl.style.display = 'block';
-        } else if (errorEl) {
-          confirmPasswordInput.classList.remove('error');
-          errorEl.style.display = 'none';
-        }
-
-        return value.length === 0 || value === passwordValue;
-      }
-
-      function updateSubmitButton() {
-        if (!submitButton || !passwordInput || !confirmPasswordInput) return;
-
-        const password = passwordInput.value;
-        const confirmPassword = confirmPasswordInput.value;
-        const isValid = password.length >= MIN_PASSWORD_LENGTH &&
-                       confirmPassword.length > 0 &&
-                       password === confirmPassword;
-
-        submitButton.disabled = !isValid;
-        if (!isValid) {
-          submitButton.style.backgroundColor = '#52525b';
-          submitButton.style.cursor = 'not-allowed';
-          submitButton.style.opacity = '0.5';
-        } else {
-          submitButton.style.backgroundColor = '';
-          submitButton.style.cursor = '';
-          submitButton.style.opacity = '';
+          return window.i18n.t('Validation.password.minLength');
+        } else if (type === 'mismatch') {
+          return window.i18n.t('Validation.password.mismatch');
         }
       }
+      // Fallback messages
+      if (type === 'minLength') {
+        return 'パスワードは8文字以上で入力してください。';
+      }
+      return 'パスワードが一致しません。';
+    }
 
-      // Add event listeners for validation
-      if (passwordInput) {
-        passwordInput.addEventListener('input', function() {
-          validatePassword();
-          validateConfirmPassword();
-          updateSubmitButton();
-        });
-        passwordInput.addEventListener('blur', validatePassword);
+    function validateAndUpdate() {
+      if (!passwordInput || !confirmPasswordInput || !submitButton) return;
+
+      const password = passwordInput.value;
+      const confirmPassword = confirmPasswordInput.value;
+
+      // Check password length
+      const passwordTooShort = password.length > 0 && password.length < MIN_PASSWORD_LENGTH;
+      if (passwordTooShort && passwordError) {
+        passwordInput.style.borderColor = '#ef4444';
+        passwordError.textContent = getErrorMessage('minLength');
+        passwordError.style.display = 'block';
+      } else if (passwordError) {
+        passwordInput.style.borderColor = '';
+        passwordError.style.display = 'none';
       }
 
-      if (confirmPasswordInput) {
-        confirmPasswordInput.addEventListener('input', function() {
-          validateConfirmPassword();
-          updateSubmitButton();
-        });
-        confirmPasswordInput.addEventListener('blur', validateConfirmPassword);
+      // Check password match
+      const passwordsDoNotMatch = confirmPassword.length > 0 && password !== confirmPassword;
+      if (passwordsDoNotMatch && confirmPasswordError) {
+        confirmPasswordInput.style.borderColor = '#ef4444';
+        confirmPasswordError.textContent = getErrorMessage('mismatch');
+        confirmPasswordError.style.display = 'block';
+      } else if (confirmPasswordError) {
+        confirmPasswordInput.style.borderColor = '';
+        confirmPasswordError.style.display = 'none';
       }
 
-      // Initialize button state
-      updateSubmitButton();
+      // Update button state
+      const isValid = password.length >= MIN_PASSWORD_LENGTH &&
+                     confirmPassword.length > 0 &&
+                     password === confirmPassword;
 
+      submitButton.disabled = !isValid;
+      if (isValid) {
+        submitButton.style.backgroundColor = '';
+        submitButton.style.cursor = '';
+        submitButton.style.opacity = '';
+      } else {
+        submitButton.style.backgroundColor = '#52525b';
+        submitButton.style.cursor = 'not-allowed';
+        submitButton.style.opacity = '0.5';
+      }
+    }
+
+    // Add event listeners
+    if (passwordInput) {
+      passwordInput.addEventListener('input', validateAndUpdate);
+      passwordInput.addEventListener('keyup', validateAndUpdate);
+    }
+
+    if (confirmPasswordInput) {
+      confirmPasswordInput.addEventListener('input', validateAndUpdate);
+      confirmPasswordInput.addEventListener('keyup', validateAndUpdate);
+    }
+
+    if (form) {
       form.addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -339,15 +293,15 @@
 
         // Validate password length
         if (password.length < MIN_PASSWORD_LENGTH) {
-          validatePassword();
-          passwordInput.focus();
+          validateAndUpdate();
+          if (passwordInput) passwordInput.focus();
           return;
         }
 
         // Validate password match
         if (password !== confirmPassword) {
-          validateConfirmPassword();
-          confirmPasswordInput.focus();
+          validateAndUpdate();
+          if (confirmPasswordInput) confirmPasswordInput.focus();
           return;
         }
 
