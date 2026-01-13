@@ -746,15 +746,16 @@ button {
 
 .hero-badge {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
   margin-bottom: 32px;
 }
 
 .hero-logo-icon {
-  width: 64px;
-  height: 64px;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
   background-color: var(--color-primary);
   mask-image: url('https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/DIGTRACKS-NEW-LOGO_square-1766839886728.png?width=8000&height=8000&resize=contain');
   -webkit-mask-image: url('https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/DIGTRACKS-NEW-LOGO_square-1766839886728.png?width=8000&height=8000&resize=contain');
@@ -768,15 +769,15 @@ button {
 
 @media (min-width: 768px) {
   .hero-logo-icon {
-    width: 80px;
-    height: 80px;
+    width: 40px;
+    height: 40px;
   }
 }
 
 @media (min-width: 1024px) {
   .hero-logo-icon {
-    width: 96px;
-    height: 96px;
+    width: 48px;
+    height: 48px;
   }
 }
 
