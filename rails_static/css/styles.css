@@ -1472,12 +1472,14 @@ button {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+  align-items: start;
 }
 
 @media (min-width: 768px) {
   .popular-grid {
     grid-template-columns: repeat(5, 1fr);
     gap: 24px;
+    align-items: start;
   }
 }
 
