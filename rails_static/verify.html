@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>認証コードを確認 | DIGTRACKS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Verify Page Specific Styles */
+    .verify-page {
+      position: relative;
+      min-height: 100vh;
+      background-color: black;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+    }
+
+    .verify-bg-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      background: rgba(147, 51, 234, 0.1);
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+    }
+
+    /* Language Switcher */
+    .lang-switcher {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 100;
+    }
+
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(39, 39, 42, 0.8);
+      border: 1px solid #3f3f46;
+      border-radius: 9999px;
+      padding: 8px 16px;
+      color: white;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      backdrop-filter: blur(8px);
+    }
+
+    .lang-toggle:hover {
+      background: rgba(147, 51, 234, 0.3);
+      border-color: #9333ea;
+    }
+
+    .lang-toggle svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .lang-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 140px;
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 8px;
+      padding: 4px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: all 0.2s;
+    }
+
+    .lang-switcher.open .lang-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .lang-option {
+      display: block;
+      width: 100%;
+      padding: 10px 12px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: #a1a1aa;
+      font-size: 0.875rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-option:hover {
+      background: #27272a;
+      color: white;
+    }
+
+    .lang-option.active {
+      color: #a855f7;
+    }
+
+    .verify-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 28rem;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .verify-card {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 32px;
+      background: rgba(9, 9, 11, 0.5);
+      padding: 32px;
+      border-radius: 24px;
+      border: 1px solid #27272a;
+      backdrop-filter: blur(8px);
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .verify-logo {
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .verify-logo:hover {
+      opacity: 0.8;
+    }
+
+    .verify-logo img {
+      width: 140px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .verify-text {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .verify-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: white;
+      text-transform: none;
+    }
+
+    .verify-description {
+      color: #71717a;
+      font-size: 0.875rem;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* OTP Input Styles */
+    .otp-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .otp-inputs {
+      display: flex;
+      gap: 8px;
+    }
+
+    @media (min-width: 640px) {
+      .otp-inputs {
+        gap: 16px;
+      }
+    }
+
+    .otp-input {
+      width: 40px;
+      height: 48px;
+      font-size: 1.25rem;
+      text-align: center;
+      background-color: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 8px;
+      color: white;
+      transition: all 0.2s;
+    }
+
+    @media (min-width: 640px) {
+      .otp-input {
+        width: 48px;
+        height: 64px;
+        font-size: 1.5rem;
+      }
+    }
+
+    .otp-input:focus {
+      outline: none;
+      border-color: #9333ea;
+      box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.3);
+    }
+
+    .otp-input::placeholder {
+      color: #3f3f46;
+    }
+
+    /* Actions */
+    .verify-actions {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .verify-submit {
+      width: 100%;
+      height: 48px;
+      background-color: #9333ea;
+      color: white;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .verify-submit:hover:not(:disabled) {
+      background-color: #7c3aed;
+    }
+
+    .verify-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .verify-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .verify-link {
+      background: transparent;
+      border: none;
+      font-size: 0.875rem;
+      color: #52525b;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .verify-link:hover {
+      color: #a855f7;
+    }
+
+    .verify-link.back:hover {
+      color: white;
+    }
+
+    .verify-link:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Footer */
+    .verify-footer {
+      margin-top: 32px;
+      color: #3f3f46;
+      font-size: 0.75rem;
+      animation: fadeIn 0.6s ease-out 0.8s both;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="verify-page">
+    <!-- Language Switcher -->
+    <div class="lang-switcher" id="lang-switcher">
+      <button class="lang-toggle" id="lang-toggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <span id="current-lang">JA</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+      <div class="lang-dropdown">
+        <button class="lang-option" data-lang="en">English (US)</button>
+        <button class="lang-option" data-lang="ja">日本語 (JA)</button>
+      </div>
+    </div>
+
+    <!-- Background Glow -->
+    <div class="verify-bg-glow"></div>
+
+    <main class="verify-container">
+      <div class="verify-card">
+        <!-- Logo -->
+        <a href="index.html" class="verify-logo">
+          <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/DigtracksLogo-1767058495526.png?width=360&height=102&resize=contain" alt="DIGTRACKS">
+        </a>
+
+        <!-- Text Content -->
+        <div class="verify-text">
+          <h1 class="verify-title" data-i18n="Verify.title">認証コードを確認</h1>
+          <p class="verify-description" data-i18n-html="Verify.description">ご登録いただいたメールアドレスに送信された<br>6桁の認証コードを入力してください。</p>
+        </div>
+
+        <!-- OTP Input -->
+        <div class="otp-container">
+          <div class="otp-inputs">
+            <input type="text" class="otp-input" maxlength="1" data-otp-index="0" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+            <input type="text" class="otp-input" maxlength="1" data-otp-index="1" inputmode="numeric" pattern="[0-9]">
+            <input type="text" class="otp-input" maxlength="1" data-otp-index="2" inputmode="numeric" pattern="[0-9]">
+            <input type="text" class="otp-input" maxlength="1" data-otp-index="3" inputmode="numeric" pattern="[0-9]">
+            <input type="text" class="otp-input" maxlength="1" data-otp-index="4" inputmode="numeric" pattern="[0-9]">
+            <input type="text" class="otp-input" maxlength="1" data-otp-index="5" inputmode="numeric" pattern="[0-9]">
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="verify-actions">
+          <button type="button" class="verify-submit" id="verify-btn" disabled data-i18n="Verify.submit">認証する</button>
+
+          <div class="verify-links">
+            <button type="button" class="verify-link" id="resend-btn" data-i18n="Verify.resend">コードを再送する</button>
+            <button type="button" class="verify-link back" id="back-btn" data-i18n="Verify.back">戻る</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="verify-footer">
+        © 2024 DIGTRACKS. All rights reserved.
+      </div>
+    </main>
+  </div>
+
+  <script src="js/i18n.js?v=3"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      document.addEventListener('DOMContentLoaded', function() {
+        // Initialize i18n
+        if (window.i18n) {
+          window.i18n.init();
+        }
+
+        initLanguageSwitcher();
+        initOTPInput();
+        initVerifyActions();
+      });
+
+      function initLanguageSwitcher() {
+        const switcher = document.getElementById('lang-switcher');
+        const toggle = document.getElementById('lang-toggle');
+        const currentLang = document.getElementById('current-lang');
+        const options = document.querySelectorAll('.lang-option');
+
+        // Update display on init
+        updateLangDisplay();
+
+        // Toggle dropdown
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          switcher.classList.toggle('open');
+        });
+
+        // Close on outside click
+        document.addEventListener('click', function(e) {
+          if (!switcher.contains(e.target)) {
+            switcher.classList.remove('open');
+          }
+        });
+
+        // Handle language selection
+        options.forEach(option => {
+          option.addEventListener('click', function() {
+            const lang = this.getAttribute('data-lang');
+            if (window.i18n) {
+              window.i18n.setLocale(lang);
+            }
+            updateLangDisplay();
+            switcher.classList.remove('open');
+          });
+        });
+
+        // Listen for locale changes
+        window.addEventListener('localeChanged', updateLangDisplay);
+
+        function updateLangDisplay() {
+          if (window.i18n) {
+            currentLang.textContent = window.i18n.currentLocale.toUpperCase();
+
+            // Update active state
+            options.forEach(opt => {
+              opt.classList.toggle('active', opt.getAttribute('data-lang') === window.i18n.currentLocale);
+            });
+          }
+        }
+      }
+
+      function initOTPInput() {
+        const otpInputs = document.querySelectorAll('.otp-input');
+        const verifyBtn = document.getElementById('verify-btn');
+
+        otpInputs.forEach((input, index) => {
+          // Handle input
+          input.addEventListener('input', function(e) {
+            // Only allow numbers
+            this.value = this.value.replace(/[^0-9]/g, '');
+
+            if (this.value.length === 1 && index < otpInputs.length - 1) {
+              otpInputs[index + 1].focus();
+            }
+
+            updateSubmitButton();
+          });
+
+          // Handle backspace
+          input.addEventListener('keydown', function(e) {
+            if (e.key === 'Backspace' && this.value === '' && index > 0) {
+              otpInputs[index - 1].focus();
+            }
+          });
+
+          // Handle paste
+          input.addEventListener('paste', function(e) {
+            e.preventDefault();
+            const pastedData = (e.clipboardData || window.clipboardData).getData('text');
+            const digits = pastedData.replace(/[^0-9]/g, '').slice(0, 6);
+
+            digits.split('').forEach((digit, i) => {
+              if (otpInputs[i]) {
+                otpInputs[i].value = digit;
+              }
+            });
+
+            // Focus last filled or next empty input
+            const lastFilledIndex = Math.min(digits.length, otpInputs.length) - 1;
+            if (lastFilledIndex >= 0) {
+              otpInputs[Math.min(lastFilledIndex + 1, otpInputs.length - 1)].focus();
+            }
+
+            updateSubmitButton();
+          });
+        });
+
+        function updateSubmitButton() {
+          const allFilled = Array.from(otpInputs).every(input => input.value.length === 1);
+          verifyBtn.disabled = !allFilled;
+        }
+      }
+
+      function initVerifyActions() {
+        const verifyBtn = document.getElementById('verify-btn');
+        const resendBtn = document.getElementById('resend-btn');
+        const backBtn = document.getElementById('back-btn');
+
+        // Verify button
+        verifyBtn.addEventListener('click', function() {
+          const otpInputs = document.querySelectorAll('.otp-input');
+          const code = Array.from(otpInputs).map(input => input.value).join('');
+          console.log('Verification code:', code);
+
+          // Demo: show success message
+          alert(window.i18n ? window.i18n.t('Verify.successMessage') : 'Verification successful! (Demo)');
+        });
+
+        // Resend button
+        resendBtn.addEventListener('click', async function() {
+          this.disabled = true;
+          const originalText = this.textContent;
+          this.textContent = window.i18n ? window.i18n.t('Verify.sending') : '送信中...';
+
+          // Simulate sending
+          await new Promise(resolve => setTimeout(resolve, 2000));
+
+          this.textContent = originalText;
+          this.disabled = false;
+
+          alert(window.i18n ? window.i18n.t('Verify.resendMessage') : 'Code resent! (Demo)');
+        });
+
+        // Back button
+        backBtn.addEventListener('click', function() {
+          window.history.back();
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
