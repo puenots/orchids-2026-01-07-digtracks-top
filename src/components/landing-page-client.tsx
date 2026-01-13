@@ -9,6 +9,7 @@ import FeaturesCards from "@/components/sections/features-cards";
 import Impact from "@/components/sections/impact";
 import FinalCtaSection from "@/components/sections/final-cta";
 import { RegistrationModal } from "@/components/registration-modal";
+import { BackToTop } from "@/components/back-to-top";
 
 const EveryGenreSection = dynamic(() => import("@/components/sections/every-genre"));
 const GenreRanking = dynamic(() => import("@/components/sections/genre-ranking"));
@@ -63,6 +64,8 @@ export function LandingPageClient() {
       </main>
       
       <Footer />
+
+      <BackToTop />
 
       <RegistrationModal 
         open={isModalOpen} 
