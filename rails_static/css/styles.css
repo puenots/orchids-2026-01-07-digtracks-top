@@ -1171,6 +1171,10 @@ button {
   background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.3));
 }
 
+.impact-card-mobile .impact-card-overlay {
+  background: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.4));
+}
+
 .impact-card-content {
   position: relative;
   z-index: 20;
