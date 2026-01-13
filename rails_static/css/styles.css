@@ -2524,6 +2524,21 @@ button {
   color: #52525b;
 }
 
+.form-input.error {
+  border-color: #ef4444;
+}
+
+.form-input.error:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+.form-error-message {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+
 .form-input-password {
   position: relative;
 }
