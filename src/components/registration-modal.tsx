@@ -18,71 +18,60 @@ interface RegistrationModalProps {
 
 const MIN_PASSWORD_LENGTH = 8;
 
+// Error messages (hardcoded to ensure they always display)
+const ERROR_MESSAGES = {
+  en: {
+    passwordMinLength: "Password must be at least 8 characters.",
+    passwordMismatch: "Passwords do not match.",
+  },
+  ja: {
+    passwordMinLength: "パスワードは8文字以上で入力してください。",
+    passwordMismatch: "パスワードが一致しません。",
+  },
+};
+
 export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps) {
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [passwordError, setPasswordError] = React.useState("");
-  const [confirmPasswordError, setConfirmPasswordError] = React.useState("");
   const locale = useLocale();
   const router = useRouter();
   const t = useTranslations("Hero.form");
   const isJa = locale === "ja";
 
-  const validatePassword = (value: string) => {
-    if (value.length > 0 && value.length < MIN_PASSWORD_LENGTH) {
-      setPasswordError(t("passwordMinLengthError"));
-      return false;
-    }
-    setPasswordError("");
-    return true;
-  };
+  const messages = ERROR_MESSAGES[isJa ? "ja" : "en"];
 
-  const validateConfirmPassword = (value: string, passwordValue: string) => {
-    if (value.length > 0 && value !== passwordValue) {
-      setConfirmPasswordError(t("passwordMismatchError"));
-      return false;
-    }
-    setConfirmPasswordError("");
-    return true;
-  };
+  // Compute validation state
+  const passwordTooShort = password.length > 0 && password.length < MIN_PASSWORD_LENGTH;
+  const passwordsDoNotMatch = confirmPassword.length > 0 && password !== confirmPassword;
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setPassword(value);
-    validatePassword(value);
-    if (confirmPassword) {
-      validateConfirmPassword(confirmPassword, value);
-    }
-  };
-
-  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setConfirmPassword(value);
-    validateConfirmPassword(value, password);
-  };
-
-  const isFormValid = () => {
+  // Form is valid only when all conditions are met
+  const isFormValid = React.useMemo(() => {
     return (
       password.length >= MIN_PASSWORD_LENGTH &&
       confirmPassword.length > 0 &&
       password === confirmPassword
     );
+  }, [password, confirmPassword]);
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.target.value);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate password length
+    // Double-check validation before submitting
     if (password.length < MIN_PASSWORD_LENGTH) {
-      setPasswordError(t("passwordMinLengthError"));
       return;
     }
 
-    // Validate password match
     if (password !== confirmPassword) {
-      setConfirmPasswordError(t("passwordMismatchError"));
       return;
     }
 
@@ -197,7 +186,7 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
                   value={password}
                   onChange={handlePasswordChange}
                   minLength={MIN_PASSWORD_LENGTH}
-                  className={`bg-zinc-900 border-zinc-800 text-white focus:ring-purple-600 focus:border-purple-600 pr-10 ${passwordError ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
+                  className={`bg-zinc-900 border-zinc-800 text-white focus:ring-purple-600 focus:border-purple-600 pr-10 ${passwordTooShort ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
                 />
                 <button
                   type="button"
@@ -207,8 +196,8 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
-              {passwordError && (
-                <p className="text-red-500 text-xs mt-1">{passwordError}</p>
+              {passwordTooShort && (
+                <p className="text-red-500 text-xs mt-1">{messages.passwordMinLength}</p>
               )}
             </div>
 
@@ -223,7 +212,7 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
                   placeholder={t("confirmPasswordPlaceholder")}
                   value={confirmPassword}
                   onChange={handleConfirmPasswordChange}
-                  className={`bg-zinc-900 border-zinc-800 text-white focus:ring-purple-600 focus:border-purple-600 pr-10 ${confirmPasswordError ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
+                  className={`bg-zinc-900 border-zinc-800 text-white focus:ring-purple-600 focus:border-purple-600 pr-10 ${passwordsDoNotMatch ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
                 />
                 <button
                   type="button"
@@ -233,8 +222,8 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
                   {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
-              {confirmPasswordError && (
-                <p className="text-red-500 text-xs mt-1">{confirmPasswordError}</p>
+              {passwordsDoNotMatch && (
+                <p className="text-red-500 text-xs mt-1">{messages.passwordMismatch}</p>
               )}
             </div>
 
