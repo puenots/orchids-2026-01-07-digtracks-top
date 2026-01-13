@@ -245,6 +245,16 @@ const translations = {
       or: "or",
       noAccount: "Don't have an account?",
       register: "Register"
+    },
+    PasswordReset: {
+      title: "Reset Password",
+      description: "Enter your registered email address. We'll send you a link to reset your password.",
+      email: "Email Address",
+      submit: "Send Reset Link",
+      or: "or",
+      rememberPassword: "Remember your password?",
+      backToSignIn: "Back to Sign In",
+      successMessage: "We've sent a password reset link to your email. Please check your inbox."
     }
   },
   ja: {
@@ -488,6 +498,16 @@ const translations = {
       or: "または",
       noAccount: "アカウントをお持ちでないですか？",
       register: "新規登録"
+    },
+    PasswordReset: {
+      title: "パスワードをリセット",
+      description: "登録済みのメールアドレスを入力してください。パスワード再設定用のリンクをお送りします。",
+      email: "メールアドレス",
+      submit: "リセットリンクを送信",
+      or: "または",
+      rememberPassword: "パスワードを思い出しましたか？",
+      backToSignIn: "サインインに戻る",
+      successMessage: "パスワードリセット用のリンクをメールで送信しました。メールをご確認ください。"
     }
   }
 };
