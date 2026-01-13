@@ -1470,14 +1470,14 @@ button {
 
 .popular-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
   align-items: start;
 }
 
 @media (min-width: 768px) {
   .popular-grid {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 24px;
     align-items: start;
   }
@@ -1485,6 +1485,7 @@ button {
 
 .popular-track {
   position: relative;
+  min-width: 0;
 }
 
 .popular-track-image {
