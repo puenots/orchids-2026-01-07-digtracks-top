@@ -243,11 +243,11 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
             <Button
               type="submit"
               className={`w-full text-white h-12 font-bold text-base mt-2 transition-all ${
-                !isFormValid()
+                !isFormValid
                   ? "bg-zinc-600 cursor-not-allowed"
                   : "bg-zinc-800 hover:bg-purple-600"
               }`}
-              disabled={!isFormValid()}
+              disabled={!isFormValid}
             >
               {t("submit")}
             </Button>
