@@ -1,4 +1,20 @@
 {
+  "Auth": {
+    "signin": {
+      "title": "Sign In",
+      "subtitle": "Welcome back to DIGTRACKS",
+      "email": "Email Address",
+      "emailPlaceholder": "email@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign In",
+      "signingIn": "Signing in...",
+      "signupPrompt": "Don't have an account?",
+      "signupButton": "Create one"
+    }
+  },
   "Header": {
     "nav": {
       "music": "Music",

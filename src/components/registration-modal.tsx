@@ -187,7 +187,14 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
             <div className="text-center pt-2">
               <p className="text-sm text-zinc-500">
                 {t("loginPrompt")}{" "}
-                <button type="button" className="text-purple-500 hover:text-purple-400 font-medium transition-colors">
+                <button
+                  type="button"
+                  onClick={() => {
+                    onOpenChange(false);
+                    router.push("/auth/signin");
+                  }}
+                  className="text-purple-500 hover:text-purple-400 font-medium transition-colors"
+                >
                   {t("loginButton")}
                 </button>
               </p>

@@ -1,4 +1,20 @@
 {
+  "Auth": {
+    "signin": {
+      "title": "ログイン",
+      "subtitle": "DIGTRACKSへようこそ",
+      "email": "メールアドレス",
+      "emailPlaceholder": "email@example.com",
+      "password": "パスワード",
+      "passwordPlaceholder": "パスワードを入力",
+      "rememberMe": "ログイン状態を保持",
+      "forgotPassword": "パスワードをお忘れですか？",
+      "submit": "ログイン",
+      "signingIn": "ログイン中...",
+      "signupPrompt": "アカウントをお持ちでないですか？",
+      "signupButton": "新規登録"
+    }
+  },
   "Header": {
     "nav": {
       "music": "ミュージック",
