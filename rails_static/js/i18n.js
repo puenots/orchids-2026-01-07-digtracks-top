@@ -234,6 +234,17 @@ const translations = {
       sending: "Sending...",
       successMessage: "Verification successful! (Demo)",
       resendMessage: "Code resent! (Demo)"
+    },
+    SignIn: {
+      title: "Sign In",
+      description: "Log in to your account",
+      email: "Email Address",
+      password: "Password",
+      submit: "Sign In",
+      forgotPassword: "Forgot your password?",
+      or: "or",
+      noAccount: "Don't have an account?",
+      register: "Register"
     }
   },
   ja: {
@@ -466,6 +477,17 @@ const translations = {
       sending: "送信中...",
       successMessage: "認証に成功しました！（デモ）",
       resendMessage: "コードを再送しました！（デモ）"
+    },
+    SignIn: {
+      title: "サインイン",
+      description: "アカウントにログインしてください",
+      email: "メールアドレス",
+      password: "パスワード",
+      submit: "サインイン",
+      forgotPassword: "パスワードをお忘れですか？",
+      or: "または",
+      noAccount: "アカウントをお持ちでないですか？",
+      register: "新規登録"
     }
   }
 };

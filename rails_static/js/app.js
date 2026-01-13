@@ -169,7 +169,7 @@
       const btn = document.getElementById(id);
       if (btn) {
         btn.addEventListener('click', function() {
-          window.location.href = 'https://www.digtracks.com/signin';
+          window.location.href = 'users/sign_in.html';
         });
       }
     });
@@ -179,7 +179,7 @@
     if (loginLink) {
       loginLink.addEventListener('click', function() {
         closeModal(modal);
-        window.location.href = 'https://www.digtracks.com/signin';
+        window.location.href = 'users/sign_in.html';
       });
     }
 
