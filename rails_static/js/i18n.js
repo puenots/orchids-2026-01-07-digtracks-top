@@ -224,6 +224,16 @@ const translations = {
       intro2: "The contents specified in these terms also apply to users who only view this website.",
       intro3: "If you do not agree to these terms, please leave this website immediately or stop using the service.",
       intro4: "By agreeing to these terms, members using this service are permitted to use our software, related applications (hereinafter referred to as \"apps\"), documents, data, and updates or upgrades."
+    },
+    Verify: {
+      title: "Check your verification code",
+      description: "Please enter the 6-digit verification code<br>sent to your registered email address.",
+      submit: "Verify",
+      resend: "Resend code",
+      back: "Go back",
+      sending: "Sending...",
+      successMessage: "Verification successful! (Demo)",
+      resendMessage: "Code resent! (Demo)"
     }
   },
   ja: {
@@ -446,6 +456,16 @@ const translations = {
       intro2: "本規約に明記されている内容は、お客様及び当ウェブサイトを観覧するだけの利用者にも適応されます。",
       intro3: "本規約に同意され無い場合は、ただちに当ウェブサイトから離れる、又はサービスの利用を停止して下さい。",
       intro4: "本規約に同意される場合、本サービスを利用される会員には当社のソフトウェア、関連するアプリケーション（以下アプリ）、文書、データ、及びアップデートやアップグレードの使用を許可します。"
+    },
+    Verify: {
+      title: "認証コードを確認",
+      description: "ご登録いただいたメールアドレスに送信された<br>6桁の認証コードを入力してください。",
+      submit: "認証する",
+      resend: "コードを再送する",
+      back: "戻る",
+      sending: "送信中...",
+      successMessage: "認証に成功しました！（デモ）",
+      resendMessage: "コードを再送しました！（デモ）"
     }
   }
 };

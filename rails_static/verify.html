@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>認証コードを確認 | DIGTRACKS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Verify Page Specific Styles */
+    .verify-page {
+      position: relative;
+      min-height: 100vh;
+      background-color: black;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+    }
+
+    .verify-bg-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      background: rgba(147, 51, 234, 0.1);
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+    }
+
+    .verify-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 28rem;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .verify-card {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 32px;
+      background: rgba(9, 9, 11, 0.5);
+      padding: 32px;
+      border-radius: 24px;
+      border: 1px solid #27272a;
+      backdrop-filter: blur(8px);
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .verify-logo {
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .verify-logo:hover {
+      opacity: 0.8;
+    }
+
+    .verify-logo img {
+      width: 140px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .verify-text {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .verify-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: white;
+      text-transform: none;
+    }
+
+    .verify-description {
+      color: #71717a;
+      font-size: 0.875rem;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* OTP Input Styles */
+    .otp-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .otp-inputs {
+      display: flex;
+      gap: 8px;
+    }
+
+    @media (min-width: 640px) {
+      .otp-inputs {
+        gap: 16px;
+      }
+    }
+
+    .otp-input {
+      width: 40px;
+      height: 48px;
+      font-size: 1.25rem;
+      text-align: center;
+      background-color: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 8px;
+      color: white;
+      transition: all 0.2s;
+    }
+
+    @media (min-width: 640px) {
+      .otp-input {
+        width: 48px;
+        height: 64px;
+        font-size: 1.5rem;
+      }
+    }
+
+    .otp-input:focus {
+      outline: none;
+      border-color: #9333ea;
+      box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.3);
+    }
+
+    .otp-input::placeholder {
+      color: #3f3f46;
+    }
+
+    /* Actions */
+    .verify-actions {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .verify-submit {
+      width: 100%;
+      height: 48px;
+      background-color: #9333ea;
+      color: white;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .verify-submit:hover:not(:disabled) {
+      background-color: #7c3aed;
+    }
+
+    .verify-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .verify-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .verify-link {
+      background: transparent;
+      border: none;
+      font-size: 0.875rem;
+      color: #52525b;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .verify-link:hover {
+      color: #a855f7;
+    }
+
+    .verify-link.back:hover {
+      color: white;
+    }
+
+    .verify-link:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Footer */
+    .verify-footer {
+      margin-top: 32px;
+      color: #3f3f46;
+      font-size: 0.75rem;
+      animation: fadeIn 0.6s ease-out 0.8s both;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="verify-page">
+    <!-- Background Glow -->
+    <div class="verify-bg-glow"></div>
+
+    <main class="verify-container">
+      <div class="verify-card">
+        <!-- Logo -->
+        <a href="index.html" class="verify-logo">
+          <img src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/DigtracksLogo-1767058495526.png?width=360&height=102&resize=contain" alt="DIGTRACKS">
+        </a>
+
+        <!-- Text Content -->
+        <div class="verify-text">
+          <h1 class="verify-title" data-i18n="Verify.title">認証コードを確認</h1>
+          <p class="verify-description" data-i18n-html="Verify.description">ご登録いただいたメールアドレスに送信された<br>6桁の認証コードを入力してください。</p>
+        </div>
+
+        <!-- OTP Input -->
+        <div class="otp-container">
+          <div class="otp-inputs">
+            <input type="text" class="otp-input" maxlength="1" data-otp-index="0" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+            <input type="text" class="otp-input" maxlength="1" data-otp-index="1" inputmode="numeric" pattern="[0-9]">
+            <input type="text" class="otp-input" maxlength="1" data-otp-index="2" inputmode="numeric" pattern="[0-9]">
+            <input type="text" class="otp-input" maxlength="1" data-otp-index="3" inputmode="numeric" pattern="[0-9]">
+            <input type="text" class="otp-input" maxlength="1" data-otp-index="4" inputmode="numeric" pattern="[0-9]">
+            <input type="text" class="otp-input" maxlength="1" data-otp-index="5" inputmode="numeric" pattern="[0-9]">
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="verify-actions">
+          <button type="button" class="verify-submit" id="verify-btn" disabled data-i18n="Verify.submit">認証する</button>
+
+          <div class="verify-links">
+            <button type="button" class="verify-link" id="resend-btn" data-i18n="Verify.resend">コードを再送する</button>
+            <button type="button" class="verify-link back" id="back-btn" data-i18n="Verify.back">戻る</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="verify-footer">
+        © 2024 DIGTRACKS. All rights reserved.
+      </div>
+    </main>
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      document.addEventListener('DOMContentLoaded', function() {
+        // Initialize i18n
+        if (window.i18n) {
+          window.i18n.init();
+        }
+
+        initOTPInput();
+        initVerifyActions();
+      });
+
+      function initOTPInput() {
+        const otpInputs = document.querySelectorAll('.otp-input');
+        const verifyBtn = document.getElementById('verify-btn');
+
+        otpInputs.forEach((input, index) => {
+          // Handle input
+          input.addEventListener('input', function(e) {
+            // Only allow numbers
+            this.value = this.value.replace(/[^0-9]/g, '');
+
+            if (this.value.length === 1 && index < otpInputs.length - 1) {
+              otpInputs[index + 1].focus();
+            }
+
+            updateSubmitButton();
+          });
+
+          // Handle backspace
+          input.addEventListener('keydown', function(e) {
+            if (e.key === 'Backspace' && this.value === '' && index > 0) {
+              otpInputs[index - 1].focus();
+            }
+          });
+
+          // Handle paste
+          input.addEventListener('paste', function(e) {
+            e.preventDefault();
+            const pastedData = (e.clipboardData || window.clipboardData).getData('text');
+            const digits = pastedData.replace(/[^0-9]/g, '').slice(0, 6);
+
+            digits.split('').forEach((digit, i) => {
+              if (otpInputs[i]) {
+                otpInputs[i].value = digit;
+              }
+            });
+
+            // Focus last filled or next empty input
+            const lastFilledIndex = Math.min(digits.length, otpInputs.length) - 1;
+            if (lastFilledIndex >= 0) {
+              otpInputs[Math.min(lastFilledIndex + 1, otpInputs.length - 1)].focus();
+            }
+
+            updateSubmitButton();
+          });
+        });
+
+        function updateSubmitButton() {
+          const allFilled = Array.from(otpInputs).every(input => input.value.length === 1);
+          verifyBtn.disabled = !allFilled;
+        }
+      }
+
+      function initVerifyActions() {
+        const verifyBtn = document.getElementById('verify-btn');
+        const resendBtn = document.getElementById('resend-btn');
+        const backBtn = document.getElementById('back-btn');
+
+        // Verify button
+        verifyBtn.addEventListener('click', function() {
+          const otpInputs = document.querySelectorAll('.otp-input');
+          const code = Array.from(otpInputs).map(input => input.value).join('');
+          console.log('Verification code:', code);
+
+          // Demo: show success message
+          alert(window.i18n ? window.i18n.t('Verify.successMessage') : 'Verification successful! (Demo)');
+        });
+
+        // Resend button
+        resendBtn.addEventListener('click', async function() {
+          this.disabled = true;
+          const originalText = this.textContent;
+          this.textContent = window.i18n ? window.i18n.t('Verify.sending') : '送信中...';
+
+          // Simulate sending
+          await new Promise(resolve => setTimeout(resolve, 2000));
+
+          this.textContent = originalText;
+          this.disabled = false;
+
+          alert(window.i18n ? window.i18n.t('Verify.resendMessage') : 'Code resent! (Demo)');
+        });
+
+        // Back button
+        backBtn.addEventListener('click', function() {
+          window.history.back();
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -191,9 +191,8 @@
     if (form) {
       form.addEventListener('submit', function(e) {
         e.preventDefault();
-        // Handle form submission here
-        alert('Registration submitted! (Demo)');
-        closeModal(modal);
+        // Redirect to verification page
+        window.location.href = 'verify.html';
       });
     }
   }
