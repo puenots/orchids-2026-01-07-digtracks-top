@@ -363,6 +363,27 @@
       animation: fadeIn 0.6s ease-out 0.8s both;
     }
 
+    /* Back to Top Link */
+    .back-to-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      color: #71717a;
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .back-to-top:hover {
+      color: #a855f7;
+    }
+
+    .back-to-top svg {
+      width: 16px;
+      height: 16px;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -444,6 +465,14 @@
           <button type="button" id="register-link" data-i18n="SignIn.register">新規登録</button>
         </div>
       </div>
+
+      <!-- Back to Top Link -->
+      <a href="../index.html" class="back-to-top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span data-i18n="SignIn.backToTop">トップに戻る</span>
+      </a>
 
       <!-- Footer -->
       <div class="signin-footer">

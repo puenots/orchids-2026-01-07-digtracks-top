@@ -244,7 +244,8 @@ const translations = {
       forgotPassword: "Forgot your password?",
       or: "or",
       noAccount: "Don't have an account?",
-      register: "Register"
+      register: "Register",
+      backToTop: "Back to Home"
     },
     PasswordReset: {
       title: "Reset Password",
@@ -503,7 +504,8 @@ const translations = {
       forgotPassword: "パスワードをお忘れですか？",
       or: "または",
       noAccount: "アカウントをお持ちでないですか？",
-      register: "新規登録"
+      register: "新規登録",
+      backToTop: "トップに戻る"
     },
     PasswordReset: {
       title: "パスワードをリセット",
