@@ -64,16 +64,25 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
   };
 
   const isFormValid = () => {
-    return password.length >= MIN_PASSWORD_LENGTH && password === confirmPassword;
+    return (
+      password.length >= MIN_PASSWORD_LENGTH &&
+      confirmPassword.length > 0 &&
+      password === confirmPassword
+    );
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const isPasswordValid = validatePassword(password);
-    const isConfirmValid = validateConfirmPassword(confirmPassword, password);
+    // Validate password length
+    if (password.length < MIN_PASSWORD_LENGTH) {
+      setPasswordError(t("passwordMinLengthError"));
+      return;
+    }
 
-    if (!isPasswordValid || !isConfirmValid || password.length < MIN_PASSWORD_LENGTH) {
+    // Validate password match
+    if (password !== confirmPassword) {
+      setConfirmPasswordError(t("passwordMismatchError"));
       return;
     }
 
@@ -243,12 +252,13 @@ export function RegistrationModal({ open, onOpenChange }: RegistrationModalProps
             </div>
 
             <Button
+              type="submit"
               className={`w-full text-white h-12 font-bold text-base mt-2 transition-all ${
-                !isFormValid() && (password.length > 0 || confirmPassword.length > 0)
+                !isFormValid()
                   ? "bg-zinc-600 cursor-not-allowed"
                   : "bg-zinc-800 hover:bg-purple-600"
               }`}
-              disabled={!isFormValid() && (password.length > 0 || confirmPassword.length > 0)}
+              disabled={!isFormValid()}
             >
               {t("submit")}
             </Button>
